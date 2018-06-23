@@ -1,0 +1,38 @@
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[08/03/2018 09:33:23 PM] - SE HA LOGEADO EL USUARIO: Nempresa
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[08/03/2018 10:53:53 PM] - SE HA LOGEADO EL USUARIO: Nempresa
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/03/2018 11:06:15 PM] - SQLSTATE: 42000
+[08/03/2018 11:06:15 PM] - CODIGO: 102
+[08/03/2018 11:06:15 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near '22'.
+[08/03/2018 11:06:15 PM] - CONSULTA: 
+          SELECT
+            (SELECT TOP(1) valor FROM datosanti WHERE codigo = '13' AND nombre = '11-01-2018' and periodoP = '2' and tipoN = '4' and IDEmpresa = '1' and Centro IN (01             22             )) AS 'A',
+            (SELECT TOP(1) valor FROM datos WHERE codigo = '13' AND nombre = '11-01-2018' and periodoP = '2' and tipoN = '4' and IDEmpresa = '1' and Centro IN (01             22             )) AS 'B',
+            (SELECT TOP(1) valor FROM datosanti WHERE codigo = '13' AND nombre = '11-01-2018' and periodoP = '2' and tipoN = '4' and IDEmpresa = '1' and Centro IN (01             22             ) and Autorizo1 = 1) AS 'C',
+            (SELECT TOP(1) valor FROM dobTurno WHERE codigo = '13' AND fecha = '11-01-2018' and periodo = '2' and tipoN = '4' AND IDEmpresa = '1' AND Centro IN (01             22             )) AS 'D',
+            (SELECT TOP(1) valor FROM deslaborado WHERE codigo = 13 AND fecha = '11-01-2018' AND periodo = 2 AND tipoN = 4 AND IDEmpresa = '1' AND Centro IN (01             22             )) AS 'E',
+            (SELECT TOP(1) (Convert(varchar(5), PP)+'|'+Convert(varchar(5), PA)) as 'B' FROM premio WHERE codigo = '13' and Periodo = '2' and TN = '4' and Centro IN (01             22             ) and IDEmpresa = '1') AS 'F',
+            (SELECT TOP(1) (Convert(varchar(5), PP)+'|'+Convert(varchar(5), PA)) as 'B' FROM ajusteempleado WHERE IDEmpleado = '13' and Centro IN (01             22             ) and IDEmpresa = '1') AS 'G',
+            (SELECT TOP(1) (Convert(varchar(5), PDOM)+'|'+Convert(varchar(5), DLaborados)) as 'B' FROM ajusteempleado WHERE IDEmpleado = '13' and Centro IN (01             22             ) and IDEmpresa = '1') AS 'H'
+        
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/03/2018 11:06:15 PM] - SQLSTATE: 42000
+[08/03/2018 11:06:15 PM] - CODIGO: 102
+[08/03/2018 11:06:15 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near '22'.
+[08/03/2018 11:06:15 PM] - CONSULTA: 
+          SELECT
+            (SELECT TOP(1) valor FROM datosanti WHERE codigo = '13' AND nombre = '11-01-2018' and periodoP = '2' and tipoN = '4' and IDEmpresa = '1' and Centro IN (01             22             )) AS 'A',
+            (SELECT TOP(1) valor FROM datos WHERE codigo = '13' AND nombre = '11-01-2018' and periodoP = '2' and tipoN = '4' and IDEmpresa = '1' and Centro IN (01             22             )) AS 'B',
+            (SELECT TOP(1) valor FROM datosanti WHERE codigo = '13' AND nombre = '11-01-2018' and periodoP = '2' and tipoN = '4' and IDEmpresa = '1' and Centro IN (01             22             ) and Autorizo1 = 1) AS 'C',
+            (SELECT TOP(1) valor FROM dobTurno WHERE codigo = '13' AND fecha = '11-01-2018' and periodo = '2' and tipoN = '4' AND IDEmpresa = '1' AND Centro IN (01             22             )) AS 'D',
+            (SELECT TOP(1) valor FROM deslaborado WHERE codigo = 13 AND fecha = '11-01-2018' AND periodo = 2 AND tipoN = 4 AND IDEmpresa = '1' AND Centro IN (01             22             )) AS 'E',
+            (SELECT TOP(1) (Convert(varchar(5), PP)+'|'+Convert(varchar(5), PA)) as 'B' FROM premio WHERE codigo = '13' and Periodo = '2' and TN = '4' and Centro IN (01             22             ) and IDEmpresa = '1') AS 'F',
+            (SELECT TOP(1) (Convert(varchar(5), PP)+'|'+Convert(varchar(5), PA)) as 'B' FROM ajusteempleado WHERE IDEmpleado = '13' and Centro IN (01             22             ) and IDEmpresa = '1') AS 'G',
+            (SELECT TOP(1) (Convert(varchar(5), PDOM)+'|'+Convert(varchar(5), DLaborados)) as 'B' FROM ajusteempleado WHERE IDEmpleado = '13' and Centro IN (01             22             ) and IDEmpresa = '1') AS 'H'
+        
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[08/03/2018 11:07:09 PM] - SE HA LOGEADO EL USUARIO: Nempresa
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[08/03/2018 11:08:28 PM] - SE HA LOGEADO EL USUARIO: Nempresa

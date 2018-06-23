@@ -1,0 +1,6 @@
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[07/03/2018 09:04:34 PM] - SE HA LOGEADO EL USUARIO: sudo
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[07/03/2018 09:37:35 PM] - SE HA LOGEADO EL USUARIO: Nempresa
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[07/03/2018 10:03:08 PM] - SE HA LOGEADO EL USUARIO: Nempresa

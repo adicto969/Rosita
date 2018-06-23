@@ -1,0 +1,4 @@
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[22/02/2018 07:48:45 PM] - SE HA LOGEADO EL USUARIO: pruebaSup3
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[22/02/2018 09:42:06 PM] - SE HA LOGEADO EL USUARIO: sudo

@@ -1,0 +1,191 @@
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[03/03/2018 12:07:16 PM] - SE HA LOGEADO EL USUARIO: sudo
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[03/03/2018 12:11:37 PM] - SE HA LOGEADO EL USUARIO: Nempresa
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[03/03/2018 12:35:49 PM] - SE HA LOGEADO EL USUARIO: Nempresa
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 03:56:33 PM] - SQLSTATE: 42000
+[03/03/2018 03:56:33 PM] - CODIGO: 8127
+[03/03/2018 03:56:33 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Column "relch_registro.centro" is invalid in the ORDER BY clause because it is not contained in either an aggregate function or the GROUP BY clause.
+[03/03/2018 03:56:33 PM] - CONSULTA: 
+        select relch_registro.codigo AS CODIGO,
+        MAX(empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre) AS NOMBRE,
+        tabulador.actividad AS ACTIVIDAD,
+        CONVERT(varchar(10), relch_registro.fecha, 103) AS FECHA,
+        '9' AS NUM_CONC,
+        MAX(CONVERT( DECIMAL(10, 2), (empleados.sueldo * '.25'))) as PDOM
+
+        from relch_registro
+
+        INNER JOIN empleados on empleados.empresa = relch_registro.empresa and empleados.codigo = relch_registro.codigo
+        INNER JOIN Llaves on Llaves.empresa = relch_registro.empresa and Llaves.codigo = relch_registro.codigo
+        INNER JOIN tabulador on  tabulador.empresa = Llaves.empresa and  tabulador.ocupacion = Llaves.ocupacion
+
+        where relch_registro.empresa = '1' and
+        empleados.activo = 'S' and
+        relch_registro.fecha BETWEEN '20171226' AND '20180110' and
+        (LOWER(DATENAME(dw, relch_registro.fecha)) = 'sunday' OR LOWER(DATENAME(dw, relch_registro.fecha)) = 'domingo') and
+        relch_registro.tiponom = '4'
+        group by fecha, relch_registro.codigo, ACTIVIDAD
+        order by relch_registro.centro
+        
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 03:56:33 PM] - SQLSTATE: 42000
+[03/03/2018 03:56:33 PM] - CODIGO: 8127
+[03/03/2018 03:56:33 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Column "relch_registro.centro" is invalid in the ORDER BY clause because it is not contained in either an aggregate function or the GROUP BY clause.
+[03/03/2018 03:56:33 PM] - CONSULTA: 
+        select relch_registro.codigo AS CODIGO,
+        MAX(empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre) AS NOMBRE,
+        tabulador.actividad AS ACTIVIDAD,
+        CONVERT(varchar(10), relch_registro.fecha, 103) AS FECHA,
+        '9' AS NUM_CONC,
+        MAX(CONVERT( DECIMAL(10, 2), (empleados.sueldo * '.25'))) as PDOM
+
+        from relch_registro
+
+        INNER JOIN empleados on empleados.empresa = relch_registro.empresa and empleados.codigo = relch_registro.codigo
+        INNER JOIN Llaves on Llaves.empresa = relch_registro.empresa and Llaves.codigo = relch_registro.codigo
+        INNER JOIN tabulador on  tabulador.empresa = Llaves.empresa and  tabulador.ocupacion = Llaves.ocupacion
+
+        where relch_registro.empresa = '1' and
+        empleados.activo = 'S' and
+        relch_registro.fecha BETWEEN '20171226' AND '20180110' and
+        (LOWER(DATENAME(dw, relch_registro.fecha)) = 'sunday' OR LOWER(DATENAME(dw, relch_registro.fecha)) = 'domingo') and
+        relch_registro.tiponom = '4'
+        group by fecha, relch_registro.codigo, ACTIVIDAD
+        order by relch_registro.centro
+        
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 03:56:33 PM] - SQLSTATE: 42000
+[03/03/2018 03:56:33 PM] - CODIGO: 8127
+[03/03/2018 03:56:33 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Column "relch_registro.centro" is invalid in the ORDER BY clause because it is not contained in either an aggregate function or the GROUP BY clause.
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[03/03/2018 04:06:22 PM] - SE HA LOGEADO EL USUARIO: pruebaSupervisor
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[03/03/2018 04:07:33 PM] - SE HA LOGEADO EL USUARIO: Nempresa
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 04:22:04 PM] - SQLSTATE: 42000
+[03/03/2018 04:22:04 PM] - CODIGO: 156
+[03/03/2018 04:22:04 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near the keyword 'group'.
+[03/03/2018 04:22:04 PM] - CONSULTA: 
+        select relch_registro.codigo AS CODIGO,
+        MAX(empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre) AS NOMBRE,
+        tabulador.actividad AS ACTIVIDAD,
+        CONVERT(varchar(10), relch_registro.fecha, 103) AS FECHA,
+        '9' AS NUM_CONC,
+        MAX(CONVERT( DECIMAL(10, 2), (empleados.sueldo * '.25'))) as PDOM
+
+        from relch_registro
+
+        INNER JOIN empleados on empleados.empresa = relch_registro.empresa and empleados.codigo = relch_registro.codigo
+        INNER JOIN Llaves on Llaves.empresa = relch_registro.empresa and Llaves.codigo = relch_registro.codigo
+        INNER JOIN tabulador on  tabulador.empresa = Llaves.empresa and  tabulador.ocupacion = Llaves.ocupacion
+
+        where relch_registro.empresa = '1' and
+        empleados.activo = 'S' and
+        relch_registro.fecha BETWEEN '20171226' AND '20180110' and
+        (LOWER(DATENAME(dw, relch_registro.fecha)) = 'sunday' OR LOWER(DATENAME(dw, relch_registro.fecha)) = 'domingo') and
+        
+        relch_registro.tiponom = '4' and
+        
+        group by fecha, relch_registro.codigo, ACTIVIDAD
+        order by relch_registro.codigo asc
+        
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 04:22:04 PM] - SQLSTATE: 42000
+[03/03/2018 04:22:04 PM] - CODIGO: 156
+[03/03/2018 04:22:04 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near the keyword 'group'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 04:22:22 PM] - SQLSTATE: 42000
+[03/03/2018 04:22:22 PM] - CODIGO: 156
+[03/03/2018 04:22:22 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near the keyword 'group'.
+[03/03/2018 04:22:22 PM] - CONSULTA: 
+        select relch_registro.codigo AS CODIGO,
+        MAX(empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre) AS NOMBRE,
+        tabulador.actividad AS ACTIVIDAD,
+        CONVERT(varchar(10), relch_registro.fecha, 103) AS FECHA,
+        '9' AS NUM_CONC,
+        MAX(CONVERT( DECIMAL(10, 2), (empleados.sueldo * '.25'))) as PDOM
+
+        from relch_registro
+
+        INNER JOIN empleados on empleados.empresa = relch_registro.empresa and empleados.codigo = relch_registro.codigo
+        INNER JOIN Llaves on Llaves.empresa = relch_registro.empresa and Llaves.codigo = relch_registro.codigo
+        INNER JOIN tabulador on  tabulador.empresa = Llaves.empresa and  tabulador.ocupacion = Llaves.ocupacion
+
+        where relch_registro.empresa = '1' and
+        empleados.activo = 'S' and
+        relch_registro.fecha BETWEEN '20171226' AND '20180110' and
+        (LOWER(DATENAME(dw, relch_registro.fecha)) = 'sunday' OR LOWER(DATENAME(dw, relch_registro.fecha)) = 'domingo') and        
+        relch_registro.tiponom = '4' and
+        
+        group by fecha, relch_registro.codigo, ACTIVIDAD
+        order by relch_registro.codigo asc
+        
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 04:22:22 PM] - SQLSTATE: 42000
+[03/03/2018 04:22:22 PM] - CODIGO: 156
+[03/03/2018 04:22:22 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near the keyword 'group'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 04:38:58 PM] - SQLSTATE: 42000
+[03/03/2018 04:38:58 PM] - CODIGO: 102
+[03/03/2018 04:38:58 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near 'B'.
+[03/03/2018 04:38:58 PM] - CONSULTA: 
+        select relch_registro.codigo AS CODIGO,
+        MAX(empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre) AS NOMBRE,
+        tabulador.actividad AS ACTIVIDAD,
+        CONVERT(varchar(10), relch_registro.fecha, 103) AS FECHA,
+        '9' AS NUM_CONC,
+        MAX(CONVERT( DECIMAL(10, 2), (empleados.sueldo * '.25'))) as PDOM
+
+        from relch_registro
+
+        INNER JOIN empleados on empleados.empresa = relch_registro.empresa and empleados.codigo = relch_registro.codigo
+        INNER JOIN Llaves on Llaves.empresa = relch_registro.empresa and Llaves.codigo = relch_registro.codigo
+        INNER JOIN tabulador on  tabulador.empresa = Llaves.empresa and  tabulador.ocupacion = Llaves.ocupacion
+
+        where relch_registro.empresa = '1' and
+        empleados.activo = 'S' and
+        relch_registro.fecha BETWEEN '20171226' AND '20180110' and
+        (LOWER(DATENAME(dw, relch_registro.fecha)) = 'sunday' OR LOWER(DATENAME(dw, relch_registro.fecha)) = 'domingo') and
+        (relch_registro.codigo LIKE %B% OR 
+              empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre LIKE '%B%' OR 
+              tabulador.actividad LIKE '%B%') and 
+        relch_registro.tiponom = '4'        
+        group by fecha, relch_registro.codigo, ACTIVIDAD, relch_registro.centro
+        order by relch_registro.centro
+        
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 04:38:58 PM] - SQLSTATE: 42000
+[03/03/2018 04:38:58 PM] - CODIGO: 102
+[03/03/2018 04:38:58 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near 'B'.
+[03/03/2018 04:38:58 PM] - CONSULTA: 
+        select relch_registro.codigo AS CODIGO,
+        MAX(empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre) AS NOMBRE,
+        tabulador.actividad AS ACTIVIDAD,
+        CONVERT(varchar(10), relch_registro.fecha, 103) AS FECHA,
+        '9' AS NUM_CONC,
+        MAX(CONVERT( DECIMAL(10, 2), (empleados.sueldo * '.25'))) as PDOM
+
+        from relch_registro
+
+        INNER JOIN empleados on empleados.empresa = relch_registro.empresa and empleados.codigo = relch_registro.codigo
+        INNER JOIN Llaves on Llaves.empresa = relch_registro.empresa and Llaves.codigo = relch_registro.codigo
+        INNER JOIN tabulador on  tabulador.empresa = Llaves.empresa and  tabulador.ocupacion = Llaves.ocupacion
+
+        where relch_registro.empresa = '1' and
+        empleados.activo = 'S' and
+        relch_registro.fecha BETWEEN '20171226' AND '20180110' and
+        (LOWER(DATENAME(dw, relch_registro.fecha)) = 'sunday' OR LOWER(DATENAME(dw, relch_registro.fecha)) = 'domingo') and
+        (relch_registro.codigo LIKE %B% OR 
+              empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre LIKE '%B%' OR 
+              tabulador.actividad LIKE '%B%') and 
+        relch_registro.tiponom = '4'        
+        group by fecha, relch_registro.codigo, ACTIVIDAD, relch_registro.centro
+        order by relch_registro.centro
+        
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[03/03/2018 04:38:58 PM] - SQLSTATE: 42000
+[03/03/2018 04:38:58 PM] - CODIGO: 102
+[03/03/2018 04:38:58 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near 'B'.
