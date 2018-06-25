@@ -43,6 +43,9 @@ if($DepOsub == 1)
               '".$centro."',
               '0'";
 
+  if(empty($_SESSION['centros']))
+    $complemento = "1 = 1";
+
 }
 if($cantidadXpagina == 'TODO'){
   $complementoF = "";
@@ -51,6 +54,9 @@ if($cantidadXpagina == 'TODO'){
   $complementoF = "WHERE ROW_NUM BETWEEN (".$pagina." - 1) * ".$cantidadXpagina." + 1 AND (".$pagina." - 1) * ".$cantidadXpagina." + ".$cantidadXpagina;
 }
 
+$whereSupe = " AND l.supervisor = ".$supervisor;
+if(empty($supervisor))
+    $whereSupe = "";
 
 $querySQL = "
 SELECT
@@ -96,7 +102,7 @@ FROM (
           INNER JOIN Llaves AS l ON l.codigo = E.codigo AND l.empresa = E.empresa
 
           WHERE  ".$complemento." AND l.empresa = '".$IDEmpresa."' AND E.activo= 'S'
-          ".$busqueda."
+          ".$busqueda.$whereSupe."
         ) AS TOTAL_REGISTROS
 
     FROM empleados AS E
@@ -105,7 +111,7 @@ FROM (
     LEFT JOIN detalle_horarios AS x ON x.horario = k.horario AND l.empresa = k.empresa
 
     WHERE  ".$complemento." AND l.empresa = '".$IDEmpresa."' AND E.activo= 'S'
-    ".$busqueda."
+    ".$busqueda.$whereSupe."
 
   ) x
     pivot

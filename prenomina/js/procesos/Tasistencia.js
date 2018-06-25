@@ -461,14 +461,19 @@ function GenerarExcel(){
       $('#modal1').modal('open');
     }
   }).done(function(datosC){
-    datosC = datosC.replace(/\ufeff/g, '');
-    console.log(datosC);
-
-    if(datosC == '1'){
+    datosC = datosC.replace(/\ufeff/g, '');    
+    try {      
+      datosC = JSON.parse(datosC);      
+      if(datosC.status == 1){
         $('#textCargado').html("ARCHIVO GENERADO");
-    }else{
+        $('#textCargado').append("<a id='clickE' href='"+datosC.url+"' download='page-excel.xls'></a>");
+        document.getElementById('clickE').click();
+      }else{        
         $('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");
-    }
+      }
+    }catch(e){      
+      $('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");
+    }    
   }).fail(function(retorno){
     $('#textCargado').html(retorno);
   }).always(function(){

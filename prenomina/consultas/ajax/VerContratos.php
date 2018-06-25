@@ -22,17 +22,30 @@ $busquedaV = "";
 
 if($DepOsub == 1)
 {
-  if($_SESSION['Sudo'] == 1){
-    $ComSql = "LEFT (L.centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
-  }else {
+  if($_SESSION['Sudo'] == 1){    
+    $ComSql = "LEFT (L.centro, ".$MascaraEm.") = LEFT (''".$centro."'', ".$MascaraEm.")";
+    if(empty($centro))
+      $ComSql = "1 = 1";
 
+  }else {
+    $ComSql = "LEFT (L.centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
   }
   
   $ComSql2 = "LEFT (centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
 }else {
   $ComSql = "L.centro IN (".$_SESSION['centros'].")";
   $ComSql2 = "centro IN (".$_SESSION['centros'].")";
+
+  if(empty($_SESSION['centros']))
+  {
+    $ComSql = "1 = 1";
+    $ComSql2 = "1 = 1";
+  }
 }
+
+$whereSup = " AND L.supervisor = ".$supervisor;
+if(empty($supervisor))
+  $whereSup = "";
 
 if(isset($_POST['buscar'])){
   if(!empty($_POST['buscar'])){
@@ -77,7 +90,7 @@ $query = "
                INNER JOIN tabulador AS T ON T.empresa = L.empresa AND T.ocupacion = L.ocupacion
                WHERE E.activo = 'S' AND
                ".$ComSql." AND L.empresa = '".$IDEmpresa."' AND L.tiponom = '".$TN."'
-               ".$busqueda."
+               ".$busqueda.$whereSup."
               ) AS TOTAL_REGISTROS
 
           FROM empleados AS E
@@ -86,7 +99,7 @@ $query = "
           INNER JOIN tabulador AS T ON T.empresa = L.empresa AND T.ocupacion = L.ocupacion
           WHERE E.activo = 'S' AND
           ".$ComSql." AND L.empresa = '".$IDEmpresa."' AND L.tiponom = '".$TN."'
-          ".$busqueda."
+          ".$busqueda.$whereSup."
           GROUP BY
              E.codigo,
              E.ap_paterno,

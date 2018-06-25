@@ -8,24 +8,32 @@ function GTasistencia(){
       if(conexion.readyState == 4 && conexion.status == 200){
           try {
               var jsonDatos = JSON.parse(conexion.responseText.replace(/\ufeff/g, ''));
+              console.log(jsonDatos);
               if(jsonDatos.error == 0){
                 if(jsonDatos.excel == 1){
                   $('#textCargado').html(jsonDatos.archivo);
                 }else {
-                    $('#textCargado').html("ARCHIVO GENERADO");
-                    setTimeout(function(){
-                      $('#modal1').modal('close');
-                      document.getElementById('textCargado').innerHTML = "Procesando...";
-                      $('#btnGenerar').blur();
-                      //location.reload();
-                    }, 1500);
+                    $('#textCargado').html("ARCHIVO GENERADO<br><br>");
+                    if(jsonDatos.pdfDownload != ''){
+                      $('#textCargado').append("<a href='"+jsonDatos.pdfDownload+"' download='PDF.pdf'>PDF.pdf</a>");
+                    }
+                    if(jsonDatos.excelPP != ''){
+                      $('#textCargado').append(" - <a href='"+jsonDatos.excelPP+"' download='PP.xls'>P.P.xls</a>");
+                    }
+                    if(jsonDatos.excelfalta != ''){
+                      $('#textCargado').append(" - <a href='"+jsonDatos.excelfalta+"' download='Faltas.xls'>Faltas.xls</a>");
+                    }
+                    if(jsonDatos.excelDL != ''){
+                      $('#textCargado').append(" - <a href='"+jsonDatos.excelDL+"' download='DescansosLaborados.xls'>DescansosLaborados.xls</a>");
+                    }
+                    $('#textCargado').append("<br><br><button class='waves-effect waves-light btn' onclick='cerrarModal()'>Cerrar</button>");
                 }
               }else {
                   $('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");
               }
-          } catch (e) {
-            console.log(e);
+          } catch (e) {            
             $('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");
+            console.log(e);
           }
 
       }else if(conexion.readyState != 4){
@@ -36,7 +44,11 @@ function GTasistencia(){
     conexion.open('POST', 'ajax.php?modo=GTasistencia', true);
     conexion.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     conexion.send(variables);
+}
 
+function cerrarModal() {
+  $('#modal1').modal('close');
+  document.getElementById('textCargado').innerHTML = "Procesando...";
 }
 
 function ActualizarT() {

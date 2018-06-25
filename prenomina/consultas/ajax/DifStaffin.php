@@ -25,8 +25,15 @@ if($DepOsub == 1)
   $ComSql99 = "LEFT (S.centro, ".$MascaraEm.") = LEFT (b.centro, ".$MascaraEm.")";
 }else {
   $ComSql = "b.centro IN (".$_SESSION['centros'].")";
+  if(empty($_SESSION['centros']))
+    $ComSql = "1 = 1";
+
   $ComSql99 = "S.centro = b.centro";
 }
+
+$whereSupe = " AND b.supervisor = ".$supervisor;
+if(empty($supervisor))
+  $whereSupe = "";
 
 $query = "
         select distinct a.ocupacion,
@@ -42,7 +49,7 @@ $query = "
         inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and ".$ComSql99."
 
         where c.activo = 'S' and
-        ".$ComSql."
+        ".$ComSql.$whereSupe."
 
         group by  a.ocupacion,
                   llaves.ocupacion,
@@ -50,9 +57,13 @@ $query = "
                   a.actividad
     ";
 
-$objBDSQL->obtenfilas($query);
-
 $numCol = $objBDSQL->obtenfilas($query);
+if(isset($numCol['error']))
+{
+  echo "Se necesita correr el proceso de staff";
+  exit();
+}
+
 if($numCol > 1){
   $resultado = '<table class="striped highlight centered">
                   <thead>

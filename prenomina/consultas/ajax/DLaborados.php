@@ -23,8 +23,10 @@ if($DepOsub == 1)
 	$ComSql = "LEFT (relch_registro.centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
 	$ComSql2 = "LEFT (centro, ".$MascaraEm.")IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
 }else {
-	$ComSql = "relch_registro.centro IN (".$_SESSION['centros'].")";
+	$ComSql = "relch_registro.centro IN (".$Dep.")";
 	$ComSql2 = "centro IN (".$_SESSION['centros'].")";
+	if(empty($_SESSION['centros']))
+		$ComSql2 = "1 = 1";
 }
 
 $whereBUS = "";

@@ -1,0 +1,1591 @@
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:00:37 AM] - SQLSTATE: 42000
+[25/06/2018 12:00:37 AM] - CODIGO: 156
+[25/06/2018 12:00:37 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near the keyword 'and'.
+[25/06/2018 12:00:37 AM] - CONSULTA: [dbo].[proc_retardos]
+          '20180111',
+          '20180125',
+          'relch_registro.centro = ',
+          '0',
+          '1',
+          '4',
+          'E',
+          'min',
+          '0'
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:00:37 AM] - SQLSTATE: 42000
+[25/06/2018 12:00:37 AM] - CODIGO: 156
+[25/06/2018 12:00:37 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near the keyword 'and'.
+[25/06/2018 12:00:37 AM] - CONSULTA: [dbo].[proc_retardos]
+          '20180111',
+          '20180125',
+          'relch_registro.centro = ',
+          '0',
+          '1',
+          '4',
+          'E',
+          'min',
+          '0'
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:07:17 AM] - SQLSTATE: 42000
+[25/06/2018 12:07:17 AM] - CODIGO: 102
+[25/06/2018 12:07:17 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:07:17 AM] - CONSULTA: 
+
+		select DISTINCT relch_registro.codigo,
+        empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre AS nombre,
+        tabulador.actividad,
+        empleados.sueldo,
+        convert (varchar(10), relch_registro.fecha, 103) as Fecha,
+        '10' as num_conc,
+        '8' as Horas,
+        CONVERT( DECIMAL(10, 2), (empleados.sueldo * '2'))  as Importe
+
+        from relch_registro
+
+        INNER JOIN empleados on empleados.empresa = relch_registro.empresa and empleados.codigo = relch_registro.codigo
+        INNER JOIN Llaves on Llaves.empresa = relch_registro.empresa and Llaves.codigo = relch_registro.codigo
+        INNER JOIN tabulador on  tabulador.empresa = Llaves.empresa and  tabulador.ocupacion = Llaves.ocupacion
+
+        where relch_registro.empresa =  '1' and
+        empleados.activo = 'S' and
+        relch_registro.fecha = '20180625'  and		
+		
+        relch_registro.tiponom = '4' and
+        relch_registro.centro IN ()
+        group by relch_registro.codigo, empleados.ap_paterno, empleados.ap_materno,
+			empleados.nombre, tabulador.actividad, empleados.sueldo, relch_registro.fecha,
+			relch_registro.num_conc, relch_registro.centro
+        order by relch_registro.codigo asc
+	
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:07:17 AM] - SQLSTATE: 42000
+[25/06/2018 12:07:17 AM] - CODIGO: 102
+[25/06/2018 12:07:17 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:07:17 AM] - CONSULTA: 
+
+		select DISTINCT relch_registro.codigo,
+        empleados.ap_paterno+' '+empleados.ap_materno+' '+empleados.nombre AS nombre,
+        tabulador.actividad,
+        empleados.sueldo,
+        convert (varchar(10), relch_registro.fecha, 103) as Fecha,
+        '10' as num_conc,
+        '8' as Horas,
+        CONVERT( DECIMAL(10, 2), (empleados.sueldo * '2'))  as Importe
+
+        from relch_registro
+
+        INNER JOIN empleados on empleados.empresa = relch_registro.empresa and empleados.codigo = relch_registro.codigo
+        INNER JOIN Llaves on Llaves.empresa = relch_registro.empresa and Llaves.codigo = relch_registro.codigo
+        INNER JOIN tabulador on  tabulador.empresa = Llaves.empresa and  tabulador.ocupacion = Llaves.ocupacion
+
+        where relch_registro.empresa =  '1' and
+        empleados.activo = 'S' and
+        relch_registro.fecha = '20180625'  and		
+		
+        relch_registro.tiponom = '4' and
+        relch_registro.centro IN ()
+        group by relch_registro.codigo, empleados.ap_paterno, empleados.ap_materno,
+			empleados.nombre, tabulador.actividad, empleados.sueldo, relch_registro.fecha,
+			relch_registro.num_conc, relch_registro.centro
+        order by relch_registro.codigo asc
+	
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:07:17 AM] - SQLSTATE: 42000
+[25/06/2018 12:07:17 AM] - CODIGO: 102
+[25/06/2018 12:07:17 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '1895' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2620' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3071' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3676' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3717' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3992' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4038' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4190' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4270' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4280' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4294' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4499' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4505' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4508' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4463' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '234' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3874' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3913' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3988' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3270' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3338' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4490' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4454' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3698' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3938' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4122' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4469' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4219' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2806' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4366' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4251' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4255' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4461' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4484' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2062' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3734' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4333' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4428' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4467' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '29' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '610' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3182' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3302' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3821' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3924' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4024' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4071' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4368' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4443' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '507' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2501' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2502' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3436' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3748' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4157' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4172' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4447' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4476' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4488' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4511' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4513' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4516' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2755' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4327' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4338' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4471' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '48' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2147' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2889' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4247' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4506' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '19' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3989' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3875' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4350' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2759' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4271' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '1111' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4492' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '1762' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4227' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3810' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2543' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2221' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3640' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '20' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2385' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4117' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4131' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4171' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4197' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4256' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4400' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '2825' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4343' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4515' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4015' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4121' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4299' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4452' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3929' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '703' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3040' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3962' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4356' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4450' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4456' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4510' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4512' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '1396' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '1847' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '3829' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '71' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4023' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[25/06/2018 12:09:15 AM] - CONSULTA: SELECT DLaborados FROM ajusteempleado WHERE IDEmpleado = '4468' AND centro IN () AND IDEmpresa = 1;
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: 42000
+[25/06/2018 12:09:15 AM] - CODIGO: 102
+[25/06/2018 12:09:15 AM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[25/06/2018 12:09:15 AM] - SQLSTATE: IMSSP
+[25/06/2018 12:09:15 AM] - CODIGO: -14
+[25/06/2018 12:09:15 AM] - MENSAJE: An invalid parameter was passed to sqlsrv_fetch_array.

@@ -282,10 +282,48 @@ if($varificarIns == false){
 }
 ///////////////////////////////////////////
 
+
+
+$queryInsertIncapacidades = "dbo.CargarIncapacidades '".$IDEmpresa."','".$_tipoNom."', '', ''";
+$queryInsertVacation = "dbo.CargarVacaciones '".$IDEmpresa."','".$_tipoNom."', '', ''";
+
+$resultInsertIncap = $objBDSQL2->consultaBD($queryInsertIncapacidades);
+
+if($resultInsertIncap['error'] == 1){
+  $file = fopen("log/log".date("d-m-Y").".txt", "a");
+  fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$resultInsertIncap['SQLSTATE'].PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$resultInsertIncap['CODIGO'].PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$resultInsertIncap['MENSAJE'].PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$queryInsertIncapacidades.PHP_EOL);
+  fclose($file);
+}
+$objBDSQL2->liberarC();
+
+$resultInsertVaca = $objBDSQL2->consultaBD($queryInsertVacation);
+
+if($resultInsertIncap['error'] == 1){
+  $file = fopen("log/log".date("d-m-Y").".txt", "a");
+  fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$resultInsertVaca['SQLSTATE'].PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$resultInsertVaca['CODIGO'].PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$resultInsertVaca['MENSAJE'].PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$queryInsertVacation.PHP_EOL);
+  fclose($file);
+}
+$objBDSQL2->liberarC();
+
+
+
+
+////////////////////////////////////////////
+
 if($DepOsub == 1)
 {
   if($_SESSION['Sudo'] == 1){
     $extringExtra = "LEFT (L.centro, ".$MascaraEm.") = LEFT (''".$centro."'', ".$MascaraEm.")";
+    if(empty($centro))
+      $extringExtra = "1 = 1";
   }else {
     $extringExtra = 'LEFT (L.centro, '.$MascaraEm.') IN (SELECT DISTINCT LEFT (centro, '.$MascaraEm.')  FROM Llaves WHERE supervisor = '.$supervisor.' )';
   }
@@ -311,6 +349,8 @@ if($DepOsub == 1)
   
   if($_SESSION['Sudo'] == 1){
     $extringExtra = "L.centro IN (".$_SESSION['centros'].")";
+    if(empty($_SESSION['centros']))
+      $extringExtra = "1 = 1";
   }else {
     $extringExtra = 'L.centro IN (SELECT DISTINCT centro FROM Llaves WHERE supervisor = '.$supervisor.' )';
   }
@@ -331,6 +371,8 @@ if($DepOsub == 1)
   '".$textExtraPro."',
   '".$ordernar."'";
   $ComSql = "Centro IN (".$_SESSION['centros'].")";
+  if(empty($_SESSION['centros']))
+      $ComSql = "1 = 1";
 }
 /////////////GENERAR EoS DE LAS CHECADAS///////////
 $_EoS = "[dbo].[ModificaRelojEos] '".$IDEmpresa."', '".$_fecha1."', '".$_fecha2."'";
@@ -597,6 +639,57 @@ while ($row=$objBDSQL->obtenResult()) {
           $objBDSQL2->liberarC2();
         }
 
+
+        $_queryIncapacidades = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc IN (109,110,111);";
+        $_queryVacaciones = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc = 30;";
+
+
+        $incapacidadesQuery = '';
+        $vacacionesQuery = '';
+        if(empty($row[$value])){
+          $consultaIncapacidades = $objBDSQL2->consultaBD2($_queryIncapacidades);
+          if($consultaIncapacidades['error'] == 1){
+            $file = fopen("log/log".date("d-m-Y").".txt", "a");
+            fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['SQLSTATE'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['CODIGO'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['MENSAJE'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryIncapacidades.PHP_EOL);
+            fclose($file);
+            $resultV['error'] = 1;
+            echo json_encode($resultV);
+            /////////////////////////////
+            $objBDSQL->cerrarBD();
+            $objBDSQL2->cerrarBD();
+
+            exit();
+          }
+
+          $incapacidadesQuery = $objBDSQL2->obtenResult2();
+          $objBDSQL2->liberarC2();
+
+          $consultaVacaciones = $objBDSQL2->consultaBD2($_queryVacaciones);
+          if($consultaVacaciones['error'] == 1){
+            $file = fopen("log/log".date("d-m-Y").".txt", "a");
+            fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['SQLSTATE'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['CODIGO'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['MENSAJE'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryVacaciones.PHP_EOL);
+            fclose($file);
+            $resultV['error'] = 1;
+            echo json_encode($resultV);
+            /////////////////////////////
+            $objBDSQL->cerrarBD();
+            $objBDSQL2->cerrarBD();
+
+            exit();
+          }
+
+          $vacacionesQuery = $objBDSQL2->obtenResult2();
+          $objBDSQL2->liberarC2();
+        }
+
         ##################################################
         //VERIFICAR LOS DATOS EN LAS TABLAS EXTRAS
         ##################################################
@@ -631,6 +724,15 @@ while ($row=$objBDSQL->obtenResult()) {
 
         if(!empty($row2['H'])){
           $_PDOM_DLabora = explode('|', $row2['H']);
+        }
+
+        if(empty($_valorC)){
+          if(isset($incapacidadesQuery['codigo'])){            
+            $_valorC = "I";
+          }
+          if(isset($vacacionesQuery['codigo'])){            
+            $_valorC = "V";
+          }          
         }
 
         ##################################################

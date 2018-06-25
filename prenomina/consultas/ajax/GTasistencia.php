@@ -3,8 +3,8 @@ require_once('librerias/pdf/fpdf.php');
 require_once('librerias/Classes/PHPExcel.php');
 require_once('librerias/Classes/PHPExcel/IOFactory.php');
 
-ini_set('display_errors', FALSE);
-ini_set('display_startup_errors', FALSE);
+ini_set('display_errors', true);
+ini_set('display_startup_errors', true);
 error_reporting(E_ALL);
 
 $FactorAu = $FactorA;
@@ -46,6 +46,10 @@ $fecha3 = $ayoC.$mesC.$diaC;
 $fecha4 = $ayoD.$mesD.$diaD;
 
 if($DepOsub == 1){
+  $filtro = "LEFT (L.centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
+  if(empty($_SESSION['centros']))
+    $filtro = "1 - 1";
+
   $SQLT = "[dbo].[reporte_checadas_excel_ctro]
           '".$fecha1."',
           '".$fecha2."',
@@ -53,7 +57,7 @@ if($DepOsub == 1){
           '".$supervisor."',
           '".$IDEmpresa."',
           '".$tipoNom."',
-          'LEFT (L.centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )',
+          '".$filtro."',
           '1',
           '1',
           '10',
@@ -63,7 +67,14 @@ if($DepOsub == 1){
           ";
 
     $LCentro = "LEFT (Centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
+    if(empty($_SESSION['centros']))
+      $LCentro = "1 = 1";
+
 }else {
+  $filtro = "L.centro IN (".$_SESSION['centros'].")";
+  if(empty($_SESSION['centros']))
+    $filtro = '1 = 1';
+
   $SQLT = "[dbo].[reporte_checadas_excel_ctro]
           '".$fecha1."',
           '".$fecha2."',
@@ -71,7 +82,7 @@ if($DepOsub == 1){
           '".$supervisor."',
           '".$IDEmpresa."',
           '".$tipoNom."',
-          'L.centro = ''".$centro."''',
+          '".$filtro."',
           '0',
           '1',
           '10',
@@ -80,6 +91,8 @@ if($DepOsub == 1){
           ''";
 
     $LCentro = "Centro IN (".$_SESSION['centros'].")";
+    if(empty($_SESSION['centro']))
+      $LCentro = "1 = 1";
 }
 
 
@@ -249,6 +262,56 @@ class PDF extends FPDF
 
           $row2=$conSql2->obtenResult2();
           $conSql2->liberarC2();
+          
+          $_FechaPar = date('Y-m-d', strtotime($fechaTitulo));
+
+          $_queryIncapacidades = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc IN (109,110,111);";
+          $_queryVacaciones = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc = 30;";
+          $incapacidadesQuery = '';
+          $vacacionesQuery = '';
+          if(empty($row[$value])){
+            $consultaIncapacidades = $conSql2->consultaBD2($_queryIncapacidades);
+            if($consultaIncapacidades['error'] == 1){
+              $file = fopen("log/log".date("d-m-Y").".txt", "a");
+              fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['SQLSTATE'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['CODIGO'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['MENSAJE'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryIncapacidades.PHP_EOL);
+              fclose($file);
+              $resultV['error'] = 1;
+              echo json_encode($resultV);
+              /////////////////////////////
+              $objBDSQL->cerrarBD();
+              $objBDSQL2->cerrarBD();
+
+              exit();
+            }
+
+            $incapacidadesQuery = $conSql2->obtenResult2();
+            $conSql2->liberarC2();
+
+            $consultaVacaciones = $conSql2->consultaBD2($_queryVacaciones);
+            if($consultaVacaciones['error'] == 1){
+              $file = fopen("log/log".date("d-m-Y").".txt", "a");
+              fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['SQLSTATE'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['CODIGO'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['MENSAJE'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryVacaciones.PHP_EOL);
+              fclose($file);
+              $resultV['error'] = 1;
+              echo json_encode($resultV);
+              /////////////////////////////
+              $objBDSQL->cerrarBD();
+              $objBDSQL2->cerrarBD();
+
+              exit();
+            }
+
+            $vacacionesQuery = $conSql2->obtenResult2();
+            $conSql2->liberarC2();
+          }
 
           $DesLBD = 0;
           $DobTT = 0;
@@ -264,6 +327,15 @@ class PDF extends FPDF
           }
           if(!empty($row2['D'])){
             $DobTT = 1;
+          }
+
+          if(empty($datos)){
+            if(isset($incapacidadesQuery['codigo'])){            
+              $datos = "I";
+            }
+            if(isset($vacacionesQuery['codigo'])){            
+              $datos = "V";
+            }          
           }
 
           if($DesLBD == 1 && $DobTT == 1){
@@ -372,7 +444,7 @@ class PDF extends FPDF
   }
 }
 
-$pdf = new PDF('L', 'mm', 'Letter');
+$pdf = new PDF('L', 'mm', 'Legal');
 $pdf->AliasNbPages();
 $pdf->SetTitle('Reporte de Faltas');
 $pdf->SetFont('Arial', '', 8);
@@ -380,7 +452,8 @@ $pdf->AddPage();
 $pdf->tabla($SQLT, $objBDSQL, $Nresul, $NombreEmpresa, $RFC, $RegisEmpresa, $periodo, $fecha1, $fecha2, $fecha3, $fecha4, $Cabecera1, $Cabecera2, $NomDep, $Ncabecera, $tipoNom, $IDEmpresa, $LCentro, $bdM, $objBDSQL2);
 $pdf->Output('F', Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\pdf\Prenomina('.trim ($NomDep, " \t.").').pdf', true);
 
-
+copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\pdf\Prenomina('.trim ($NomDep, " \t.").').pdf', 'Temp\Prenomina('.trim ($NomDep, " \t.").').pdf');
+$resultV['pdfDownload'] = URL_PAGINA .'Temp/Prenomina('.trim ($NomDep, " \t.").').pdf';
 ########################################################################################
 ############################CREAR ARCHIV EXCEL ########################################
 $objPHPExcel = new PHPExcel();
@@ -762,45 +835,7 @@ $objConceptos = $objReaderConceptos->load("plantillaExcel/PP.xls");
 $objConceptos->setActiveSheetIndex(0);
 $FILA2 = 2;
 $FILA4 = 2;
-/*$sql1 = $bdM->query("DESCRIBE conseptoextra");
-$consultaCO = "EXEC sp_columns @table_name = N'conseptoextra'";
-$consultaCO2 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'conseptoextra'";
-$objBDSQL->consultaBD($consultaCO);
-//Nombre de la columna COLUMN_NAME
 
-  while($datos = $objBDSQL->obtenResult()){
-      if($datos['COLUMN_NAME'] != "Codigo" && $datos['COLUMN_NAME'] != "ID" && $datos['COLUMN_NAME'] != "Periodo" && $datos['COLUMN_NAME'] != "IDEmpresa" && $datos['COLUMN_NAME'] != "Centro"){
-        $divisor = explode("_", $datos['COLUMN_NAME']);
-        $consultaInter = "SELECT Codigo, ".$datos['COLUMN_NAME']." FROM conseptoextra WHERE Periodo = '$periodo' AND ".$LCentro." AND IDEmpresa = '$IDEmpresa' AND ".$datos['COLUMN_NAME']." != '';";
-        $objBDSQL2->consultaBD2($consultaInter);
-        while($DATTOs = $objBDSQL2->obtenResult2()){
-          $divisor = explode("_", $datos['COLUMN_NAME']);
-          if($divisor[1] <= 99){
-            $objConceptos99->getActiveSheet()->SetCellValue('A'.$FILA2, $DATTOs['Codigo'])
-                                           ->SetCellValue('B'.$FILA2, $divisor[1])
-                                           ->SetCellValue('C'.$FILA2, $DATTOs[$datos['COLUMN_NAME']]);
-            $FILA2++;
-          }else if($divisor[1] >= 100 && $divisor[1] <= 199){
-            $objConceptos->getActiveSheet()->SetCellValue('A'.$FILA4, $DATTOs['Codigo'])
-                                           ->SetCellValue('B'.$FILA4, $divisor[1])
-                                           ->SetCellValue('C'.$FILA4, $DATTOs[$datos['COLUMN_NAME']]);
-            $FILA4++;
-          }
-
-        }
-        $objBDSQL2->liberarC2();
-      }
-  }
-$objBDSQL->liberarC();
-
-
-
-$objWriter99 = PHPExcel_IOFactory::createWriter($objConceptos99, 'Excel5');
-$objWriter99->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\Pagos('.trim ($NomDep, " \t.").').xls');
-
-$objWriterS = PHPExcel_IOFactory::createWriter($objConceptos, 'Excel5');
-$objWriterS->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\Descuentos('.trim ($NomDep, " \t.").').xls');
-*/
 
 #####################################################################################
 ##########################VERIFICAR SI LOS ARCHIVOS ESTAN VACIOS ###################
@@ -811,8 +846,13 @@ $objReader->setLoadSheetsOnly('Hoja1');
 $objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
 
 $objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Hoja1');
+
+$resultV['excelPP'] = '';
 if($objPHPExcel->getActiveSheet()->getCell('A2')->getFormattedValue() == ""){
   unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
+}else {
+  copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls', 'Temp\PP('.trim ($NomDep, " \t.").').xls');
+  $resultV['excelPP'] = URL_PAGINA .'Temp/PP('.trim ($NomDep, " \t.").').xls';
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -824,8 +864,13 @@ $objReader->setLoadSheetsOnly('Ausentismos_CapturaMasiva');
 $objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
 
 $objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Ausentismos_CapturaMasiva');
+
+$resultV['excelfalta'] = '';
 if($objPHPExcel->getActiveSheet()->getCell('A2')->getFormattedValue() == ""){
   unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
+}else {
+  copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls', 'Temp\falta('.trim ($NomDep, " \t.").').xls');
+  $resultV['excelfalta'] = URL_PAGINA .'Temp/falta('.trim ($NomDep, " \t.").').xls';
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -836,34 +881,14 @@ $objReader->setLoadSheetsOnly('Hoja1');
 $objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
 
 $objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Hoja1');
+
+$resultV['excelDL'] = '';
 if($objPHPExcel->getActiveSheet()->getCell('A1')->getFormattedValue() == ""){
   unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
+}else {
+  copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls', 'Temp\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
+  $resultV['excelDL'] = URL_PAGINA .'Temp/DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls';
 }
-/*
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$XLFileType = PHPExcel_IOFactory::identify(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\Pagos('.trim ($NomDep, " \t.").').xls');
-$objReader = PHPExcel_IOFactory::createReader($XLFileType);
-$objReader->setLoadSheetsOnly('Hoja1');
-$objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\Pagos('.trim ($NomDep, " \t.").').xls');
-
-$objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Hoja1');
-if($objPHPExcel->getActiveSheet()->getCell('A1')->getFormattedValue() == ""){
-  unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\Pagos('.trim ($NomDep, " \t.").').xls');
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$XLFileType = PHPExcel_IOFactory::identify(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\Descuentos('.trim ($NomDep, " \t.").').xls');
-$objReader = PHPExcel_IOFactory::createReader($XLFileType);
-$objReader->setLoadSheetsOnly('Hoja1');
-$objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\Descuentos('.trim ($NomDep, " \t.").').xls');
-
-$objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Hoja1');
-if($objPHPExcel->getActiveSheet()->getCell('A1')->getFormattedValue() == ""){
-  unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\Descuentos('.trim ($NomDep, " \t.").').xls');
-}*/
-
 
 try {
   $objBDSQL->cerrarBD();

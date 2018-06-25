@@ -15,14 +15,20 @@ if($DepOsub == 1)
 	$ComSql = "LEFT (L.centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
 }else {
 	$ComSql = "L.centro IN (".$_SESSION['centros'].")";
+	if(empty($_SESSION['centros']))
+		$ComSql = "1 = 1";
 }
 
+$wherSup = " AND L.supervisor = ".$supervisor;
+if(empty($supervisor))
+	$wherSup = "";
+
 $query = "
-SELECT E.codigo
+SELECT E.codigo, L.centro
 FROM empleados AS E
 INNER JOIN Llaves AS L ON L.codigo = E.codigo AND L.empresa = E.empresa
 INNER JOIN tabulador AS T ON  T.ocupacion = L.ocupacion AND T.empresa = L.empresa
-WHERE  ".$ComSql." AND L.empresa = '".$IDEmpresa."' AND E.activo = 'S'
+WHERE  ".$ComSql." AND L.empresa = '".$IDEmpresa.$wherSup."' AND E.activo = 'S'
 ";
 
 $resultCon = $objBDSQL->consultaBD($query);
@@ -76,13 +82,13 @@ while($row = $objBDSQL->obtenResult()){
 		}
 
 		$consulta = "IF EXISTS(
-											SELECT ID FROM ajusteempleado WHERE IDEmpleado = ".$nombreA." AND centro IN (".$_SESSION['centros'].") AND IDEmpresa = ".$IDEmpresa.")
+											SELECT ID FROM ajusteempleado WHERE IDEmpleado = ".$nombreA." AND centro = '".$row['centro']."' AND IDEmpresa = ".$IDEmpresa.")
 									BEGIN
-										UPDATE ajusteempleado SET PDOM = '".$A1."', DLaborados = '".$A2."', PA = '".$A3."', PP = '".$A4."', centro = '".$centro."' WHERE IDEmpleado = '".$nombreA."' AND centro = '".$centro."' AND IDEmpresa = ".$IDEmpresa."
+										UPDATE ajusteempleado SET PDOM = '".$A1."', DLaborados = '".$A2."', PA = '".$A3."', PP = '".$A4."' WHERE IDEmpleado = '".$nombreA."' AND centro = '".$row['centro']."' AND IDEmpresa = ".$IDEmpresa."
 									END
 									ELSE
 									BEGIN
-										INSERT INTO ajusteempleado values ('".$nombreA."', '".$A1."', '".$A2."', '".$A3."', '".$A4."', '".$centro."', ".$IDEmpresa." )
+										INSERT INTO ajusteempleado values ('".$nombreA."', '".$A1."', '".$A2."', '".$A3."', '".$A4."', '".$row['centro']."', ".$IDEmpresa." )
 									END";
 
 		$resultCon2 = $objBDSQL2->consultaBD2($consulta);

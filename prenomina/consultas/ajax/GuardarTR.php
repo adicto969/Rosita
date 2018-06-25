@@ -16,41 +16,6 @@ $valor = strtoupper($valor);
 $resultV = array();
 $resultV['error'] = 0;
 
-if($DepOsub == 1){
-  $ComSql2 = "LEFT (CENTRO, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
-  $ComSql3 = "LEFT (Centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
-}else {
-  $ComSql2 = "CENTRO IN (".$_SESSION['centros'].")";
-  $ComSql3 = "Centro IN (".$_SESSION['centros'].")";
-}
-
-$consultaD = "SELECT valor
-              FROM datos
-              WHERE codigo = '$codigo'
-              AND nombre = '$fecha'
-              AND periodoP = '$PRio'
-              AND tipoN = '$Ttn'
-              AND IDEmpresa = '$IDEmpresa'
-              AND $ComSql3;";
-$consulta = $objBDSQL->consultaBD($consultaD);
-if($consulta['error'] == 1){
-  $file = fopen("log/log".date("d-m-Y").".txt", "a");
-  fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consulta['SQLSTATE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consulta['CODIGO'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consulta['MENSAJE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$consultaD.PHP_EOL);
-  fclose($file);
-  $resultV['error'] = 1;
-  echo json_encode($resultV);
-  /////////////////////////////
-  $objBDSQL->cerrarBD();
-  exit();
-}
-
-$row = $objBDSQL->obtenResult();
-$objBDSQL->liberarC();
-
 /////////////////////////////////////////////////
 ##############Consultar centro del empleado
 $consultaCentro = "SELECT LTRIM(RTRIM(centro)) AS centro
@@ -80,6 +45,33 @@ $consultaCentro = "SELECT LTRIM(RTRIM(centro)) AS centro
  }
  $objBDSQL->liberarC();
  ##########################################################
+
+$consultaD = "SELECT valor
+              FROM datos
+              WHERE codigo = '$codigo'
+              AND nombre = '$fecha'
+              AND periodoP = '$PRio'
+              AND tipoN = '$Ttn'
+              AND IDEmpresa = '$IDEmpresa'
+              AND CENTRO = '".$centroE."';";
+$consulta = $objBDSQL->consultaBD($consultaD);
+if($consulta['error'] == 1){
+  $file = fopen("log/log".date("d-m-Y").".txt", "a");
+  fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consulta['SQLSTATE'].PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consulta['CODIGO'].PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consulta['MENSAJE'].PHP_EOL);
+  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$consultaD.PHP_EOL);
+  fclose($file);
+  $resultV['error'] = 1;
+  echo json_encode($resultV);
+  /////////////////////////////
+  $objBDSQL->cerrarBD();
+  exit();
+}
+
+$row = $objBDSQL->obtenResult();
+$objBDSQL->liberarC();
 
 
 

@@ -83,7 +83,9 @@ if($DepOsub == 1)
 {
 	$ComSql = "LEFT (Centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
 }else {
-	$ComSql = "Centro IN (".$_SESSION['centros'].")";
+  $ComSql = "Centro IN (".$_SESSION['centros'].")";
+  if(empty($_SESSION['centros']))
+    $ComSql = "1 = 1";
 }
 
 $fechaSuma = "";

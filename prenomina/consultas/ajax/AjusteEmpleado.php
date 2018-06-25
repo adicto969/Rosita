@@ -26,7 +26,15 @@ if($DepOsub == 1)
 }else {
 	$complementoSql = "L.centro IN (".$_SESSION['centros'].")";
 	$ComSql2 = "centro IN (".$_SESSION['centros'].")";
+
+	if(empty($_SESSION['centros'])){
+		$complementoSql = "1 = 1";
+	}
 }
+
+$whereSup = " AND L.supervisor = ".$supervisor;
+if(empty($supervisor))
+	$whereSup = "";
 
 $busqueda = "";
 $busqueda2 = "";
@@ -56,14 +64,14 @@ FROM (
 				 INNER JOIN tabulador AS T ON T.ocupacion = L.ocupacion AND T.empresa = L.empresa
 				 WHERE ".$complementoSql." AND L.empresa = '".$IDEmpresa."' AND E.activo = 'S'
 				 AND L.tiponom = '".$TN."'
-				 ".$busqueda."
+				 ".$busqueda.$whereSup."
 				) AS TOTAL_REGISTROS
 			FROM empleados AS E
 			INNER JOIN Llaves AS L ON L.codigo = E.codigo AND L.empresa = E.empresa
 			INNER JOIN tabulador AS T ON T.ocupacion = L.ocupacion AND T.empresa = L.empresa
 			WHERE ".$complementoSql." AND L.empresa = '".$IDEmpresa."' AND E.activo = 'S'
 			AND L.tiponom = '".$TN."'
-			".$busqueda."
+			".$busqueda.$whereSup."
 	) AS X
 WHERE ROW_NUM BETWEEN (".$pagina." - 1) * ".$cantidadXpagina." + 1 AND (".$pagina." - 1) * ".$cantidadXpagina." + ".$cantidadXpagina."
 ORDER BY ".$ordenar."

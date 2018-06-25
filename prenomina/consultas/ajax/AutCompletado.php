@@ -8,13 +8,19 @@ if($DepOsub == 1)
 {
 	$ComSql = "LEFT (L.centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
 }else {
-	$ComSql = "L.centro IN (".$_SESSION['centros'].")";
+  $ComSql = "L.centro IN (".$_SESSION['centros'].")";
+  if(empty($_SESSION['centros']))
+    $ComSql = " 1 = 1";
 }
+
+$whereSup = " AND L.supervisor = ".$supervisor;
+if(empty($supervisor))
+  $whereSup = "";
 
 $consulta = "SELECT TOP 5 E.codigo, E.nombre + ' ' + E.ap_paterno + ' ' + E.ap_materno AS nombre
 FROM empleados AS E
 INNER JOIN Llaves AS L ON L.codigo = E.codigo AND L.empresa = E.empresa
-WHERE E.codigo LIKE '".$codigo."%' AND L.empresa = $IDEmpresa AND L.tiponom = $Tnn AND $ComSql;
+WHERE E.codigo LIKE '".$codigo."%' AND L.empresa = $IDEmpresa AND L.tiponom = $Tnn AND $ComSql ".$whereSup.";
 ";
 
 $objBDSQL->consultaBD($consulta);

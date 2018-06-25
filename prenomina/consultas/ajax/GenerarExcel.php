@@ -335,6 +335,10 @@ if($tipo == "destajo"){
   $fecha2 = $_ayoB.$_mesB.$_diaB;
   if($DepOsub == 1)
   {
+    $filtro = "LEFT (L.centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
+    if(empty($_SESSION['centros']))
+      $filtro = '1 = 1';
+
     $queryGeneral = "
     [dbo].[reporte_checadas_excel_ctro]
     '".$fecha1."',
@@ -343,16 +347,23 @@ if($tipo == "destajo"){
     '".$supervisor."',
     '".$IDEmpresa."',
     '".$TN."',
-    'LEFT (L.centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )',
+    '".$filtro."',
     '1',
     '1',
     '10',
     '',
     '',
     '".$ordernar."'
-    ";
+    ";    
     $ComSql = "LEFT (Centro, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
+    if(empty($_SESSION['centros']))
+      $ComSql = "1 = 1";
+
   }else {
+    $filtro = "L.centro IN (".$_SESSION['centros'].")";
+    if(empty($_SESSION['centros']))
+      $filtro = '1 = 1';
+
     $queryGeneral = "
     [dbo].[reporte_checadas_excel_ctro]
     '".$fecha1."',
@@ -361,14 +372,17 @@ if($tipo == "destajo"){
     '".$supervisor."',
     '".$IDEmpresa."',
     '".$TN."',
-    'L.centro IN (".$_SESSION['centros'].")',
+    '".$filtro."',
     '0',
     '1',
     '10',
     '',
     '',
-    ''";
+    ''";    
     $ComSql = "Centro IN (".$_SESSION['centros'].")";
+    if(empty($_SESSION['centros']))
+      $ComSql = "1 = 1";
+
   }
 
   $Nresultados = 1;
@@ -379,8 +393,10 @@ if($tipo == "destajo"){
     $letraAun2 = 'A';
     foreach ($row as $key => $value) {
         if($Nresultados == 1){
-          $objPHPExcel->getActiveSheet()->SetCellValue($letraAun.'6', $key);
-          $letraAun++;
+          if($key != "Sueldo" && $key != "TOTAL_REGISTROS" && $key != "PAGINA"){
+            $objPHPExcel->getActiveSheet()->SetCellValue($letraAun.'6', $key);
+            $letraAun++;
+          }            
         }
 
         $tmp_valorC = "";
@@ -423,13 +439,74 @@ if($tipo == "destajo"){
             $valorC = $row2['C'];
           }
         }
-        if($key == 'codigo' || $key == 'Nombre' || $key == 'Sueldo' || $key == 'Tpo'){
-            $objPHPExcel->getActiveSheet()->SetCellValue($letraAun2.$FILA, $value);
-        }else {
-            $objPHPExcel->getActiveSheet()->SetCellValue($letraAun2.$FILA, $valorC);
+
+        $incapacidadesQuery = '';
+        $vacacionesQuery = '';
+        $_queryIncapacidades = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc IN (109,110,111);";
+        $_queryVacaciones = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc = 30;";
+        if(empty($row[$value])){
+          $consultaIncapacidades = $objBDSQL2->consultaBD2($_queryIncapacidades);
+          if($consultaIncapacidades['error'] == 1){
+            $file = fopen("log/log".date("d-m-Y").".txt", "a");
+            fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['SQLSTATE'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['CODIGO'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['MENSAJE'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryIncapacidades.PHP_EOL);
+            fclose($file);
+            $resultV['error'] = 1;
+            echo json_encode($resultV);
+            /////////////////////////////
+            $objBDSQL->cerrarBD();
+            $objBDSQL2->cerrarBD();
+
+            exit();
+          }
+
+          $incapacidadesQuery = $objBDSQL2->obtenResult2();
+          $objBDSQL2->liberarC2();
+
+          $consultaVacaciones = $objBDSQL2->consultaBD2($_queryVacaciones);
+          if($consultaVacaciones['error'] == 1){
+            $file = fopen("log/log".date("d-m-Y").".txt", "a");
+            fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['SQLSTATE'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['CODIGO'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['MENSAJE'].PHP_EOL);
+            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryVacaciones.PHP_EOL);
+            fclose($file);
+            $resultV['error'] = 1;
+            echo json_encode($resultV);
+            /////////////////////////////
+            $objBDSQL->cerrarBD();
+            $objBDSQL2->cerrarBD();
+
+            exit();
+          }
+
+          $vacacionesQuery = $objBDSQL2->obtenResult2();
+          $objBDSQL2->liberarC2();
         }
 
-        $letraAun2++;
+        if(empty($value)){
+          if(isset($incapacidadesQuery['codigo'])){            
+            $value = "I";
+          }
+          if(isset($vacacionesQuery['codigo'])){            
+            $value = "V";
+          }
+        }
+
+        if($key == 'codigo' || $key == 'Nombre' || $key == 'Tpo'){
+            $objPHPExcel->getActiveSheet()->SetCellValue($letraAun2.$FILA, $value);
+            $letraAun2++;
+        }else if($key != 'Sueldo' && $key != 'TOTAL_REGISTROS' && $key != 'PAGINA'){
+            if(empty($valorC))
+              $valorC = $value;
+
+            $objPHPExcel->getActiveSheet()->SetCellValue($letraAun2.$FILA, $valorC);
+            $letraAun2++;
+        }        
     }
     $Nresultados++;
     $FILA++;
@@ -1042,6 +1119,7 @@ if($tn == 1){
 }
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\pantalla-'.$tipo.'.xls');
-echo "1";
+copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\pantalla-'.$tipo.'.xls', 'Temp\pantalla-'.$tipo.'.xls');
 
+echo json_encode(array("url" => URL_PAGINA .'Temp/pantalla-'.$tipo.'.xls', "status" => 1));
 ?>

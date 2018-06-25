@@ -140,14 +140,23 @@ list($diaB, $mesB, $ayoB) = explode('/', $fecha2);
 $fecha1 = $ayo.$mes.$dia;
 $fecha2 = $ayoB.$mesB.$diaB;
 
+$whereSuper = " AND Llaves.supervisor = ".$supervisor;
+
+if(empty($supervisor))
+  $whereSuper = "";
 
 if($DepOsub == 1)
 {
+
+  $whereCentro = "LEFT (relch_registro.centro, ".$MascaraEm.") = LEFT (".$centro.", ".$MascaraEm.") ";
+  if(empty($centro))
+    $whereCentro = "1 = 1";
+
   $query = "[dbo].[proc_retardos]
           '".$fecha1."',
           '".$fecha2."',
-          '".$centro."',
-          '0',
+          '".$whereCentro."',
+          '".$whereSuper."',
           '".$IDEmpresa."',
           '".$Tn."',
           'E',
@@ -155,11 +164,15 @@ if($DepOsub == 1)
           '1'";
   $ComSql = "LEFT (Dep, ".$MascaraEm.") IN (SELECT DISTINCT LEFT (centro, ".$MascaraEm.")  FROM Llaves WHERE supervisor = ".$supervisor." )";
 }else {
+  $whereCentro = "relch_registro.centro = ".$centro;
+  if(empty($centro))
+    $whereCentro = "1 = 1";  
+
   $query = "[dbo].[proc_retardos]
           '".$fecha1."',
           '".$fecha2."',
-          '".$centro."',
-          '0',
+          '".$whereCentro."',
+          '".$whereSuper."',
           '".$IDEmpresa."',
           '".$Tn."',
           'E',
