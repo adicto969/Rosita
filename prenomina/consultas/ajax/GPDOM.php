@@ -272,9 +272,14 @@ while ($row = $objBDSQL->obtenResult())
 
 }
 
+$resultV = array("excel" => "");
+
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PDOM('.trim ($NombreD, " \t.").').xls');
+copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PDOM('.trim ($NombreD, " \t.").').xls', 'Temp\PDOM('.trim ($NombreD, " \t.").').xls');
+  $resultV['excel'] = URL_PAGINA .'Temp/PDOM('.trim ($NombreD, " \t.").').xls';
 
-echo "1";
+
+echo json_encode($resultV);
 
 ?>

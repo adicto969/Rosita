@@ -25,6 +25,10 @@ $resultV = array();
 $resultV['error'] = 0;
 $resultV['archivo'] = "-";
 $resultV['excel'] = 0;
+$resultV['excelDL'] = "";
+$resultV['excelfalta'] = "";
+$resultV['excelPP'] = "";
+$resultV['pdfDownload'] = "";
 
 
 $objBDSQL = new ConexionSRV();
@@ -263,7 +267,7 @@ class PDF extends FPDF
           $row2=$conSql2->obtenResult2();
           $conSql2->liberarC2();
           
-          $_FechaPar = date('Y-m-d', strtotime($fechaTitulo));
+          $_FechaPar = date('Ymd', strtotime($fechaTitulo));
 
           $_queryIncapacidades = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc IN (109,110,111);";
           $_queryVacaciones = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc = 30;";
@@ -444,64 +448,116 @@ class PDF extends FPDF
   }
 }
 
-$pdf = new PDF('L', 'mm', 'Legal');
-$pdf->AliasNbPages();
-$pdf->SetTitle('Reporte de Faltas');
-$pdf->SetFont('Arial', '', 8);
-$pdf->AddPage();
-$pdf->tabla($SQLT, $objBDSQL, $Nresul, $NombreEmpresa, $RFC, $RegisEmpresa, $periodo, $fecha1, $fecha2, $fecha3, $fecha4, $Cabecera1, $Cabecera2, $NomDep, $Ncabecera, $tipoNom, $IDEmpresa, $LCentro, $bdM, $objBDSQL2);
-$pdf->Output('F', Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\pdf\Prenomina('.trim ($NomDep, " \t.").').pdf', true);
+if($_SESSION['Sudo'] != 1){
+  $pdf = new PDF('L', 'mm', 'Legal');
+  $pdf->AliasNbPages();
+  $pdf->SetTitle('Reporte de Faltas');
+  $pdf->SetFont('Arial', '', 8);
+  $pdf->AddPage();
+  $pdf->tabla($SQLT, $objBDSQL, $Nresul, $NombreEmpresa, $RFC, $RegisEmpresa, $periodo, $fecha1, $fecha2, $fecha3, $fecha4, $Cabecera1, $Cabecera2, $NomDep, $Ncabecera, $tipoNom, $IDEmpresa, $LCentro, $bdM, $objBDSQL2);
+  $pdf->Output('F', Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\pdf\Prenomina('.trim ($NomDep, " \t.").').pdf', true);
 
-copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\pdf\Prenomina('.trim ($NomDep, " \t.").').pdf', 'Temp\Prenomina('.trim ($NomDep, " \t.").').pdf');
-$resultV['pdfDownload'] = URL_PAGINA .'Temp/Prenomina('.trim ($NomDep, " \t.").').pdf';
-########################################################################################
-############################CREAR ARCHIV EXCEL ########################################
-$objPHPExcel = new PHPExcel();
-// Leemos un archivo Excel 2007
-$objReader = PHPExcel_IOFactory::createReader('Excel5');
-// Leemos un archivo Excel 2007
-$objPHPExcel = $objReader->load("plantillaExcel/faltas.xls");
-// Indicamos que se pare en la hoja uno del libro
-$objPHPExcel->setActiveSheetIndex(0);
-
-$FILA = 2;
-
-if($Ncabecera > $Nresul){
-  $NResultado = $Ncabecera;
-}else {
-  $NResultado = $Nresul;
+  copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\pdf\Prenomina('.trim ($NomDep, " \t.").').pdf', 'Temp\Prenomina('.trim ($NomDep, " \t.").').pdf');
+  $resultV['pdfDownload'] = URL_PAGINA .'Temp/Prenomina('.trim ($NomDep, " \t.").').pdf';
 }
 
-$queryRTG = $objBDSQL->consultaBD($SQLT);
-if($queryRTG['error'] == 1){
-  $file = fopen("log/log".date("d-m-Y").".txt", "a");
-  fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRTG['SQLSTATE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRTG['CODIGO'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRTG['MENSAJE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$SQLT.PHP_EOL);
-  fclose($file);
-  $resultV['excel'] = 1;
-  echo json_encode($resultV);
-  /////////////////////////////
-  $objBDSQL->cerrarBD();
-
-  exit();
-}
-
-$o = 0;
-$lr = 0;
-while ( $row = $objBDSQL->obtenResult() )
+if($_SESSION['Sudo'] == 1)
 {
-  if($row['Tpo'] == "E"){
+  ########################################################################################
+  ############################CREAR ARCHIV EXCEL ########################################
+  $objPHPExcel = new PHPExcel();
+  // Leemos un archivo Excel 2007
+  $objReader = PHPExcel_IOFactory::createReader('Excel5');
+  // Leemos un archivo Excel 2007
+  $objPHPExcel = $objReader->load("plantillaExcel/faltas.xls");
+  // Indicamos que se pare en la hoja uno del libro
+  $objPHPExcel->setActiveSheetIndex(0);
 
-    $CONSULTA = "SELECT fechaO, valor
-                 FROM datos
-                 WHERE codigo = '".$row['codigo']."'
-                 AND periodoP = '$periodo'
-                 AND tipoN = '$tipoNom'
-                 AND IDEmpresa = '$IDEmpresa'
-                 AND ".$LCentro.";";
+  $FILA = 2;
+
+  if($Ncabecera > $Nresul){
+    $NResultado = $Ncabecera;
+  }else {
+    $NResultado = $Nresul;
+  }
+
+  $queryRTG = $objBDSQL->consultaBD($SQLT);
+  if($queryRTG['error'] == 1){
+    $file = fopen("log/log".date("d-m-Y").".txt", "a");
+    fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRTG['SQLSTATE'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRTG['CODIGO'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRTG['MENSAJE'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$SQLT.PHP_EOL);
+    fclose($file);
+    $resultV['excel'] = 1;
+    echo json_encode($resultV);
+    /////////////////////////////
+    $objBDSQL->cerrarBD();
+
+    exit();
+  }
+
+  $o = 0;
+  $lr = 0;
+  while ( $row = $objBDSQL->obtenResult() )
+  {
+    if($row['Tpo'] == "E"){
+
+      $CONSULTA = "SELECT fechaO, valor
+                  FROM datos
+                  WHERE codigo = '".$row['codigo']."'
+                  AND periodoP = '$periodo'
+                  AND tipoN = '$tipoNom'
+                  AND IDEmpresa = '$IDEmpresa'
+                  AND ".$LCentro.";";
+
+      $queryRT = $objBDSQL2->consultaBD2($CONSULTA);
+
+      if($queryRT['error'] == 1){
+        $file = fopen("log/log".date("d-m-Y").".txt", "a");
+        fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+        fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['SQLSTATE'].PHP_EOL);
+        fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['CODIGO'].PHP_EOL);
+        fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['MENSAJE'].PHP_EOL);
+        fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$CONSULTA.PHP_EOL);
+        fclose($file);
+        $resultV['excel'] = 1;
+        echo json_encode($resultV);
+        /////////////////////////////
+        $objBDSQL->cerrarBD();
+
+        exit();
+      }
+
+      while($datos = $objBDSQL2->obtenResult2()){
+        if(strtoupper($datos['valor']) == "F" || strtoupper($datos['valor']) == "P" || strtoupper($datos['valor']) == "S" || strtoupper($datos['valor']) == "T"){
+          $objPHPExcel->getActiveSheet()->SetCellValue('A'.$FILA, $row['codigo'])
+                                        ->SetCellValue('B'.$FILA, 108)
+                                        ->SetCellValue('C'.$FILA, ($row['Sueldo'] * $FactorAu))
+                                        ->SetCellValue('D'.$FILA, $datos['fechaO'])
+                                        ->SetCellValue('E'.$FILA, $datos['valor'])
+                                        ->SetCellValue('F'.$FILA, 1);
+          $FILA++;
+        }
+        $R++;
+      }
+      $objBDSQL2->liberarC2();
+
+      $CONSULTA = " SELECT codigo, fechaO, valor FROM datosanti AS A
+                    WHERE
+                    A.codigo = '".$row['codigo']."'
+                    AND A.IDEmpresa = '$IDEmpresa'
+                    AND A.tipoN = '$tipoNom'
+                    AND A.periodoP = '$periodo'
+                    AND ".$LCentro."
+                    AND NOT EXISTS (SELECT codigo, fechaO, valor
+                              FROM datos AS D
+                              WHERE A.codigo = D.codigo
+                              AND A.fechaO = D.fechaO
+                              AND A.IDEmpresa = D.IDEmpresa
+                              AND A.periodoP = D.periodoP
+                              AND A.Centro = D.Centro)";
 
     $queryRT = $objBDSQL2->consultaBD2($CONSULTA);
 
@@ -531,202 +587,196 @@ while ( $row = $objBDSQL->obtenResult() )
                                       ->SetCellValue('F'.$FILA, 1);
         $FILA++;
       }
-      $R++;
     }
-    $objBDSQL2->liberarC2();
-
-    $CONSULTA = " SELECT codigo, fechaO, valor FROM datosanti AS A
-									 WHERE
-                   A.codigo = '".$row['codigo']."'
-									 AND A.IDEmpresa = '$IDEmpresa'
-									 AND A.tipoN = '$tipoNom'
-									 AND A.periodoP = '$periodo'
-									 AND ".$LCentro."
-									 AND NOT EXISTS (SELECT codigo, fechaO, valor
-													   FROM datos AS D
-													   WHERE A.codigo = D.codigo
-													   AND A.fechaO = D.fechaO
-													   AND A.IDEmpresa = D.IDEmpresa
-													   AND A.periodoP = D.periodoP
-													   AND A.Centro = D.Centro)";
-
-   $queryRT = $objBDSQL2->consultaBD2($CONSULTA);
-
-   if($queryRT['error'] == 1){
-     $file = fopen("log/log".date("d-m-Y").".txt", "a");
-     fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-     fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['SQLSTATE'].PHP_EOL);
-     fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['CODIGO'].PHP_EOL);
-     fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['MENSAJE'].PHP_EOL);
-     fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$CONSULTA.PHP_EOL);
-     fclose($file);
-     $resultV['excel'] = 1;
-     echo json_encode($resultV);
-     /////////////////////////////
-     $objBDSQL->cerrarBD();
-
-     exit();
-   }
-
-   while($datos = $objBDSQL2->obtenResult2()){
-     if(strtoupper($datos['valor']) == "F" || strtoupper($datos['valor']) == "P" || strtoupper($datos['valor']) == "S" || strtoupper($datos['valor']) == "T"){
-       $objPHPExcel->getActiveSheet()->SetCellValue('A'.$FILA, $row['codigo'])
-                                     ->SetCellValue('B'.$FILA, 108)
-                                     ->SetCellValue('C'.$FILA, ($row['Sueldo'] * $FactorAu))
-                                     ->SetCellValue('D'.$FILA, $datos['fechaO'])
-                                     ->SetCellValue('E'.$FILA, $datos['valor'])
-                                     ->SetCellValue('F'.$FILA, 1);
-       $FILA++;
-     }
-   }
 
 
+    }
   }
-}
-$objBDSQL->liberarC();
-//Guardamos el archivo en formato Excel 2007
-//Si queremos trabajar con Excel 2003, basta cambiar el 'Excel2007' por 'Excel5' y el nombre del archivo de salida cambiar su formato por '.xls'
-try {
-  $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-  $objWriter->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
-} catch (Exception $e) {
-  $resultV['excel'] = 1;
-  $resultV['archivo'] = "Error al crear el archivo de faltas, Verifique que no este abierto";
-  echo json_encode($resultV);
-  exit();
-}
+  $objBDSQL->liberarC();
+  //Guardamos el archivo en formato Excel 2007
+  //Si queremos trabajar con Excel 2003, basta cambiar el 'Excel2007' por 'Excel5' y el nombre del archivo de salida cambiar su formato por '.xls'
+  try {
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
+  } catch (Exception $e) {
+    $resultV['excel'] = 1;
+    $resultV['archivo'] = "Error al crear el archivo de faltas, Verifique que no este abierto";
+    echo json_encode($resultV);
+    exit();
+  }
 
 
 
-###################################################################################################################################
-##########################################################PP y PA EXCEL############################################################
+  ###################################################################################################################################
+  ##########################################################PP y PA EXCEL############################################################
 
-$objPHPExcel2 = new PHPExcel();
-$objReader2 = PHPExcel_IOFactory::createReader('Excel5');
-$objPHPExcel2 = $objReader2->load("plantillaExcel/PP.xls");
-$objPHPExcel2->setActiveSheetIndex(0);
+  $objPHPExcel2 = new PHPExcel();
+  $objReader2 = PHPExcel_IOFactory::createReader('Excel5');
+  $objPHPExcel2 = $objReader2->load("plantillaExcel/PP.xls");
+  $objPHPExcel2->setActiveSheetIndex(0);
 
-$queryJ = $objBDSQL->consultaBD($SQLT);
-if($queryJ['error'] == 1){
-  $file = fopen("log/log".date("d-m-Y").".txt", "a");
-  fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['SQLSTATE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['CODIGO'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['MENSAJE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$SQLT.PHP_EOL);
-  fclose($file);
-  $resultV['excel'] = 1;
-  echo json_encode($resultV);
-  /////////////////////////////
-  $objBDSQL->cerrarBD();
+  $queryJ = $objBDSQL->consultaBD($SQLT);
+  if($queryJ['error'] == 1){
+    $file = fopen("log/log".date("d-m-Y").".txt", "a");
+    fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['SQLSTATE'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['CODIGO'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['MENSAJE'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$SQLT.PHP_EOL);
+    fclose($file);
+    $resultV['excel'] = 1;
+    echo json_encode($resultV);
+    /////////////////////////////
+    $objBDSQL->cerrarBD();
 
-  exit();
-}
+    exit();
+  }
 
-$FILA2 = 2;
-while ( $row = $objBDSQL->obtenResult() )
-{
-    if($row['Tpo'] == "E"){
+  $FILA2 = 2;
+  while ( $row = $objBDSQL->obtenResult() )
+  {
+      if($row['Tpo'] == "E"){
 
-      $CONSULTA = "SELECT PA, PP
-                   FROM premio
-                   WHERE codigo = '".$row['codigo']."'
-                   AND Periodo = '$periodo'
-                   AND TN = '$tipoNom'
-                   AND IDEmpresa = '$IDEmpresa'
-                   AND ".$LCentro.";";
-      $queryRT = $objBDSQL2->consultaBD2($CONSULTA);
+        $CONSULTA = "SELECT PA, PP
+                    FROM premio
+                    WHERE codigo = '".$row['codigo']."'
+                    AND Periodo = '$periodo'
+                    AND TN = '$tipoNom'
+                    AND IDEmpresa = '$IDEmpresa'
+                    AND ".$LCentro.";";
+        $queryRT = $objBDSQL2->consultaBD2($CONSULTA);
 
-      if($queryRT['error'] == 1){
-        $file = fopen("log/log".date("d-m-Y").".txt", "a");
-        fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-        fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['SQLSTATE'].PHP_EOL);
-        fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['CODIGO'].PHP_EOL);
-        fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['MENSAJE'].PHP_EOL);
-        fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$CONSULTA.PHP_EOL);
-        fclose($file);
-        $resultV['error'] = 1;
-        echo json_encode($resultV);
-        /////////////////////////////
-        $objBDSQL->cerrarBD();
+        if($queryRT['error'] == 1){
+          $file = fopen("log/log".date("d-m-Y").".txt", "a");
+          fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+          fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['SQLSTATE'].PHP_EOL);
+          fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['CODIGO'].PHP_EOL);
+          fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryRT['MENSAJE'].PHP_EOL);
+          fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$CONSULTA.PHP_EOL);
+          fclose($file);
+          $resultV['error'] = 1;
+          echo json_encode($resultV);
+          /////////////////////////////
+          $objBDSQL->cerrarBD();
 
-        exit();
-      }
+          exit();
+        }
 
-      while($datos = $objBDSQL2->obtenResult2()){
-        if(!empty($datos)){
-          if($datos['PP'] != "0.00"){
-            $objPHPExcel2->getActiveSheet()->SetCellValue('A'.$FILA2, $row['codigo'])
-                                            ->SetCellValue('B'.$FILA2, $_POST['pp'])
-                                            ->SetCellValue('C'.$FILA2, $datos['PP']);
-            $FILA2++;
-          }
-          if($datos['PA'] != "0.00"){
-            $objPHPExcel2->getActiveSheet()->SetCellValue('A'.$FILA2, $row['codigo'])
-                                            ->SetCellValue('B'.$FILA2, $_POST['pa'])
-                                            ->SetCellValue('C'.$FILA2, $datos['PA']);
-            $FILA2++;
+        while($datos = $objBDSQL2->obtenResult2()){
+          if(!empty($datos)){
+            if($datos['PP'] != "0.00"){
+              $objPHPExcel2->getActiveSheet()->SetCellValue('A'.$FILA2, $row['codigo'])
+                                              ->SetCellValue('B'.$FILA2, $_POST['pp'])
+                                              ->SetCellValue('C'.$FILA2, $datos['PP']);
+              $FILA2++;
+            }
+            if($datos['PA'] != "0.00"){
+              $objPHPExcel2->getActiveSheet()->SetCellValue('A'.$FILA2, $row['codigo'])
+                                              ->SetCellValue('B'.$FILA2, $_POST['pa'])
+                                              ->SetCellValue('C'.$FILA2, $datos['PA']);
+              $FILA2++;
+            }
           }
         }
+
+        $objBDSQL2->liberarC2();
       }
+  }
+  $objBDSQL->liberarC();
 
-      $objBDSQL2->liberarC2();
+  try {
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel2, 'Excel5');
+    $objWriter->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
+
+  } catch (Exception $e) {
+    $resultV['excel'] = 1;
+    $resultV['archivo'] = "Error al crear el archivo de PP, Verifique que no este abierto";
+    echo json_encode($resultV);
+    exit();
+  }
+  ####################################################################################
+  #############################GENERAR DESCANSO LABORADO##############################
+  /*
+  $objPHPExcel2 = new PHPExcel();
+  $objReader2 = PHPExcel_IOFactory::createReader('Excel5');
+  $objPHPExcel2 = $objReader2->load("plantillaExcel/DLaborado.xls");
+  $objPHPExcel2->setActiveSheetIndex(0);
+
+  $consultaDL = "SELECT codigo, fecha, IDEmpresa FROM deslaborado WHERE periodo = ".$periodo." AND tipoN = ".$tipoNom." AND IDEmpresa = ".$IDEmpresa." AND valor = 1 AND ".$LCentro;
+  //$query = $bdM->query($consultaDL);
+  $queryJ = $objBDSQL->consultaBD($consultaDL);
+  if($queryJ['error'] == 1){
+    $file = fopen("log/log".date("d-m-Y").".txt", "a");
+    fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['SQLSTATE'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['CODIGO'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['MENSAJE'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$consultaDL.PHP_EOL);
+    fclose($file);
+    $resultV['excel'] = 1;
+    echo json_encode($resultV);
+    /////////////////////////////
+    $objBDSQL->cerrarBD();
+
+    exit();
+  }
+  $FILA2 = 1;
+  while($datosM = $objBDSQL->obtenResult()){
+
+    $querysueldo = "SELECT sueldo
+                    FROM empleados
+                    WHERE codigo = ".$datosM['codigo']."
+                    AND empresa = ".$datosM['IDEmpresa'];
+    $Sueldo = "";
+    $dat = $objBDSQL2->consultaBD2($querysueldo);
+    if($dat['error'] == 1){
+      $file = fopen("log/log".date("d-m-Y").".txt", "a");
+      fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['SQLSTATE'].PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['CODIGO'].PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['MENSAJE'].PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$querysueldo.PHP_EOL);
+      fclose($file);
+      $resultV['excel'] = 1;
+      echo json_encode($resultV);
+      /////////////////////////////
+      $objBDSQL->cerrarBD();
+
+      exit();
     }
-}
-$objBDSQL->liberarC();
+    $datos = $objBDSQL2->obtenResult2();
+    $Sueldo = $datos['sueldo'];
+    $objBDSQL2->liberarC2();
+    $fcM = str_replace('-', '/', $datosM['fecha']);
+    $objPHPExcel2->getActiveSheet()->SetCellValue('A'.$FILA2, $datosM['codigo'])
+                                  ->SetCellValue('B'.$FILA2, 10)
+                                  ->SetCellValue('C'.$FILA2, $Sueldo)
+                                  ->SetCellValue('D'.$FILA2, $fcM)
+                                  ->SetCellValue('E'.$FILA2, 8);
+    $FILA2++;
 
-try {
-  $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel2, 'Excel5');
-  $objWriter->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
+  }
+  $objBDSQL->liberarC();
 
-} catch (Exception $e) {
-  $resultV['excel'] = 1;
-  $resultV['archivo'] = "Error al crear el archivo de PP, Verifique que no este abierto";
-  echo json_encode($resultV);
-  exit();
-}
-####################################################################################
-#############################GENERAR DESCANSO LABORADO##############################
+  $ConsultaDT = "SELECT codigo,
+                        fecha,
+                        IDEmpresa
+                FROM dobturno
+                WHERE periodo = ".$periodo."
+                AND tipoN = ".$tipoNom."
+                AND IDEmpresa = ".$IDEmpresa."
+                AND valor = 1
+                AND ".$LCentro;
 
-$objPHPExcel2 = new PHPExcel();
-$objReader2 = PHPExcel_IOFactory::createReader('Excel5');
-$objPHPExcel2 = $objReader2->load("plantillaExcel/DLaborado.xls");
-$objPHPExcel2->setActiveSheetIndex(0);
 
-$consultaDL = "SELECT codigo, fecha, IDEmpresa FROM deslaborado WHERE periodo = ".$periodo." AND tipoN = ".$tipoNom." AND IDEmpresa = ".$IDEmpresa." AND valor = 1 AND ".$LCentro;
-//$query = $bdM->query($consultaDL);
-$queryJ = $objBDSQL->consultaBD($consultaDL);
-if($queryJ['error'] == 1){
-  $file = fopen("log/log".date("d-m-Y").".txt", "a");
-  fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['SQLSTATE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['CODIGO'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['MENSAJE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$consultaDL.PHP_EOL);
-  fclose($file);
-  $resultV['excel'] = 1;
-  echo json_encode($resultV);
-  /////////////////////////////
-  $objBDSQL->cerrarBD();
-
-  exit();
-}
-$FILA2 = 1;
-while($datosM = $objBDSQL->obtenResult()){
-
-  $querysueldo = "SELECT sueldo
-                  FROM empleados
-                  WHERE codigo = ".$datosM['codigo']."
-                  AND empresa = ".$datosM['IDEmpresa'];
-  $Sueldo = "";
-  $dat = $objBDSQL2->consultaBD2($querysueldo);
-  if($dat['error'] == 1){
+  $queryJ = $objBDSQL->consultaBD($ConsultaDT);
+  if($queryJ['error'] == 1){
     $file = fopen("log/log".date("d-m-Y").".txt", "a");
     fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['SQLSTATE'].PHP_EOL);
-    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['CODIGO'].PHP_EOL);
-    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['MENSAJE'].PHP_EOL);
-    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$querysueldo.PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['SQLSTATE'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['CODIGO'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['MENSAJE'].PHP_EOL);
+    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$ConsultaDT.PHP_EOL);
     fclose($file);
     $resultV['excel'] = 1;
     echo json_encode($resultV);
@@ -735,159 +785,120 @@ while($datosM = $objBDSQL->obtenResult()){
 
     exit();
   }
-  $datos = $objBDSQL2->obtenResult2();
-  $Sueldo = $datos['sueldo'];
-  $objBDSQL2->liberarC2();
-  $fcM = str_replace('-', '/', $datosM['fecha']);
-  $objPHPExcel2->getActiveSheet()->SetCellValue('A'.$FILA2, $datosM['codigo'])
-                                 ->SetCellValue('B'.$FILA2, 10)
-                                 ->SetCellValue('C'.$FILA2, $Sueldo)
-                                 ->SetCellValue('D'.$FILA2, $fcM)
-                                 ->SetCellValue('E'.$FILA2, 8);
-  $FILA2++;
+  while ($datosM = $objBDSQL->obtenResult()) {
+    $querysueldo2 = "SELECT sueldo
+                    FROM empleados
+                    WHERE codigo = ".$datosM['codigo']."
+                    AND empresa = ".$datosM['IDEmpresa'];
+    $Sueldo = "";
+    $dat = $objBDSQL2->consultaBD2($querysueldo2);
+    if($dat['error'] == 1){
+      $file = fopen("log/log".date("d-m-Y").".txt", "a");
+      fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['SQLSTATE'].PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['CODIGO'].PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['MENSAJE'].PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$querysueldo2.PHP_EOL);
+      fclose($file);
+      $resultV['excel'] = 1;
+      echo json_encode($resultV);
+      /////////////////////////////
+      $objBDSQL->cerrarBD();
 
-}
-$objBDSQL->liberarC();
+      exit();
+    }
 
-$ConsultaDT = "SELECT codigo,
-                      fecha,
-                      IDEmpresa
-               FROM dobturno
-               WHERE periodo = ".$periodo."
-               AND tipoN = ".$tipoNom."
-               AND IDEmpresa = ".$IDEmpresa."
-               AND valor = 1
-               AND ".$LCentro;
+    $datos = $objBDSQL2->obtenResult2();
+    $Sueldo = $datos['sueldo'];
+    $objBDSQL2->liberarC2();
+    $fcM = str_replace('-', '/', $datosM['fecha']);
+    $objPHPExcel2->getActiveSheet()->SetCellValue('A'.$FILA2, $datosM['codigo'])
+                                  ->SetCellValue('B'.$FILA2, 10)
+                                  ->SetCellValue('C'.$FILA2, $Sueldo)
+                                  ->SetCellValue('D'.$FILA2, $fcM)
+                                  ->SetCellValue('E'.$FILA2, 8);
+    $FILA2++;
+  }
+  $objBDSQL->liberarC();
 
-
-$queryJ = $objBDSQL->consultaBD($ConsultaDT);
-if($queryJ['error'] == 1){
-  $file = fopen("log/log".date("d-m-Y").".txt", "a");
-  fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['SQLSTATE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['CODIGO'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$queryJ['MENSAJE'].PHP_EOL);
-  fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$ConsultaDT.PHP_EOL);
-  fclose($file);
-  $resultV['excel'] = 1;
-  echo json_encode($resultV);
-  /////////////////////////////
-  $objBDSQL->cerrarBD();
-
-  exit();
-}
-while ($datosM = $objBDSQL->obtenResult()) {
-  $querysueldo2 = "SELECT sueldo
-                  FROM empleados
-                  WHERE codigo = ".$datosM['codigo']."
-                  AND empresa = ".$datosM['IDEmpresa'];
-  $Sueldo = "";
-  $dat = $objBDSQL2->consultaBD2($querysueldo2);
-  if($dat['error'] == 1){
-    $file = fopen("log/log".date("d-m-Y").".txt", "a");
-    fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['SQLSTATE'].PHP_EOL);
-    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['CODIGO'].PHP_EOL);
-    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$dat['MENSAJE'].PHP_EOL);
-    fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$querysueldo2.PHP_EOL);
-    fclose($file);
+  try {
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel2, 'Excel5');
+    $objWriter->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
+  } catch (Exception $e) {
     $resultV['excel'] = 1;
+    $resultV['archivo'] = "Error al crear el archivo de DESCANSOS LABORADOS, Verifique que no este abierto";
     echo json_encode($resultV);
-    /////////////////////////////
-    $objBDSQL->cerrarBD();
-
     exit();
+  }*/
+  ###################################################################################
+  #########################CONCEPTOS EXTRAS##########################################
+
+  $objConceptos99 = new PHPExcel();
+  $objReaderConceptos99 = PHPExcel_IOFactory::createReader('Excel5');
+  $objConceptos99 = $objReaderConceptos99->load("plantillaExcel/PP.xls");
+  $objConceptos99->setActiveSheetIndex(0);
+
+  $objConceptos = new PHPExcel();
+  $objReaderConceptos = PHPExcel_IOFactory::createReader('Excel5');
+  $objConceptos = $objReaderConceptos->load("plantillaExcel/PP.xls");
+  $objConceptos->setActiveSheetIndex(0);
+  $FILA2 = 2;
+  $FILA4 = 2;
+
+
+  #####################################################################################
+  ##########################VERIFICAR SI LOS ARCHIVOS ESTAN VACIOS ###################
+
+  $XLFileType = PHPExcel_IOFactory::identify(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
+  $objReader = PHPExcel_IOFactory::createReader($XLFileType);
+  $objReader->setLoadSheetsOnly('Hoja1');
+  $objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
+
+  $objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Hoja1');
+
+  $resultV['excelPP'] = '';
+  if($objPHPExcel->getActiveSheet()->getCell('A2')->getFormattedValue() == ""){
+    unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
+  }else {
+    copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls', 'Temp\PP('.trim ($NomDep, " \t.").').xls');
+    $resultV['excelPP'] = URL_PAGINA .'Temp/PP('.trim ($NomDep, " \t.").').xls';
   }
 
-  $datos = $objBDSQL2->obtenResult2();
-  $Sueldo = $datos['sueldo'];
-  $objBDSQL2->liberarC2();
-  $fcM = str_replace('-', '/', $datosM['fecha']);
-  $objPHPExcel2->getActiveSheet()->SetCellValue('A'.$FILA2, $datosM['codigo'])
-                                 ->SetCellValue('B'.$FILA2, 10)
-                                 ->SetCellValue('C'.$FILA2, $Sueldo)
-                                 ->SetCellValue('D'.$FILA2, $fcM)
-                                 ->SetCellValue('E'.$FILA2, 8);
-  $FILA2++;
-}
-$objBDSQL->liberarC();
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-try {
-  $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel2, 'Excel5');
-  $objWriter->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
-} catch (Exception $e) {
-  $resultV['excel'] = 1;
-  $resultV['archivo'] = "Error al crear el archivo de DESCANSOS LABORADOS, Verifique que no este abierto";
-  echo json_encode($resultV);
-  exit();
-}
-###################################################################################
-#########################CONCEPTOS EXTRAS##########################################
+  $XLFileType = PHPExcel_IOFactory::identify(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
+  $objReader = PHPExcel_IOFactory::createReader($XLFileType);
+  $objReader->setLoadSheetsOnly('Ausentismos_CapturaMasiva');
+  $objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
 
-$objConceptos99 = new PHPExcel();
-$objReaderConceptos99 = PHPExcel_IOFactory::createReader('Excel5');
-$objConceptos99 = $objReaderConceptos99->load("plantillaExcel/PP.xls");
-$objConceptos99->setActiveSheetIndex(0);
+  $objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Ausentismos_CapturaMasiva');
 
-$objConceptos = new PHPExcel();
-$objReaderConceptos = PHPExcel_IOFactory::createReader('Excel5');
-$objConceptos = $objReaderConceptos->load("plantillaExcel/PP.xls");
-$objConceptos->setActiveSheetIndex(0);
-$FILA2 = 2;
-$FILA4 = 2;
+  $resultV['excelfalta'] = '';
+  if($objPHPExcel->getActiveSheet()->getCell('A2')->getFormattedValue() == ""){
+    unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
+  }else {
+    copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls', 'Temp\falta('.trim ($NomDep, " \t.").').xls');
+    $resultV['excelfalta'] = URL_PAGINA .'Temp/falta('.trim ($NomDep, " \t.").').xls';
+  }
 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*$XLFileType = PHPExcel_IOFactory::identify(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
+  $objReader = PHPExcel_IOFactory::createReader($XLFileType);
+  $objReader->setLoadSheetsOnly('Hoja1');
+  $objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
 
-#####################################################################################
-##########################VERIFICAR SI LOS ARCHIVOS ESTAN VACIOS ###################
+  $objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Hoja1');
 
-$XLFileType = PHPExcel_IOFactory::identify(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
-$objReader = PHPExcel_IOFactory::createReader($XLFileType);
-$objReader->setLoadSheetsOnly('Hoja1');
-$objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
+  $resultV['excelDL'] = '';
+  if($objPHPExcel->getActiveSheet()->getCell('A1')->getFormattedValue() == ""){
+    unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
+  }else {
+    copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls', 'Temp\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
+    $resultV['excelDL'] = URL_PAGINA .'Temp/DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls';
+  }*/
 
-$objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Hoja1');
-
-$resultV['excelPP'] = '';
-if($objPHPExcel->getActiveSheet()->getCell('A2')->getFormattedValue() == ""){
-  unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls');
-}else {
-  copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\PP('.trim ($NomDep, " \t.").').xls', 'Temp\PP('.trim ($NomDep, " \t.").').xls');
-  $resultV['excelPP'] = URL_PAGINA .'Temp/PP('.trim ($NomDep, " \t.").').xls';
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-$XLFileType = PHPExcel_IOFactory::identify(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
-$objReader = PHPExcel_IOFactory::createReader($XLFileType);
-$objReader->setLoadSheetsOnly('Ausentismos_CapturaMasiva');
-$objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
-
-$objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Ausentismos_CapturaMasiva');
-
-$resultV['excelfalta'] = '';
-if($objPHPExcel->getActiveSheet()->getCell('A2')->getFormattedValue() == ""){
-  unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls');
-}else {
-  copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\falta('.trim ($NomDep, " \t.").').xls', 'Temp\falta('.trim ($NomDep, " \t.").').xls');
-  $resultV['excelfalta'] = URL_PAGINA .'Temp/falta('.trim ($NomDep, " \t.").').xls';
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$XLFileType = PHPExcel_IOFactory::identify(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
-$objReader = PHPExcel_IOFactory::createReader($XLFileType);
-$objReader->setLoadSheetsOnly('Hoja1');
-$objPHPExcel = $objReader->load(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
-
-$objWorksheet = $objPHPExcel->setActiveSheetIndexByName('Hoja1');
-
-$resultV['excelDL'] = '';
-if($objPHPExcel->getActiveSheet()->getCell('A1')->getFormattedValue() == ""){
-  unlink(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
-}else {
-  copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls', 'Temp\DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls');
-  $resultV['excelDL'] = URL_PAGINA .'Temp/DESCANSOS_LABORADOS('.trim ($NomDep, " \t.").').xls';
 }
 
 try {
@@ -898,6 +909,13 @@ try {
   $resultV['archivo'] = 'ERROR al cerrar la conexion con SQL SERVER'.$e->getMessage();
 }
 
-  echo json_encode($resultV);
+if($_SESSION['Sudo'] != 1)
+{
+  $resultV['excelDL'] = "";
+  $resultV['excelfalta'] = "";
+  $resultV['excelPP'] = "";
+}
+
+echo json_encode($resultV);
 
 ?>

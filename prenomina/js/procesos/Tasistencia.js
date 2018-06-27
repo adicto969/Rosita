@@ -461,7 +461,7 @@ function GenerarExcel(){
       $('#modal1').modal('open');
     }
   }).done(function(datosC){
-    datosC = datosC.replace(/\ufeff/g, '');    
+    datosC = datosC.replace(/\ufeff/g, '');
     try {      
       datosC = JSON.parse(datosC);      
       if(datosC.status == 1){

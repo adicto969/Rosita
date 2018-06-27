@@ -596,7 +596,7 @@ while ($row=$objBDSQL->obtenResult()) {
       }else {
         $tmp_valorC = "";
         $_FechaCol = str_replace("/", "-", $value);
-        $_FechaPar = date('Y-m-d', strtotime($_FechaCol));
+        $_FechaPar = date('Ymd', strtotime($_FechaCol));
         $_DiaNumero = date('N', strtotime($_FechaPar));
         if($_DiaNumero == 1){
             $_FechaNDQ = $_dias[6];

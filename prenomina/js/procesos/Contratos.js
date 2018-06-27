@@ -504,25 +504,26 @@ function GenerarExcel(){
         alert( "page not found" );
       },
       200: function(datosC) {
-        if(datosC.replace(/\ufeff/g, '') == '1'){
+        datosC = datosC.replace(/\ufeff/g, '');
+        try{
+          datosC = JSON.parse(datosC);
+          if(datosC.status == 1){
             $('#textCargado').html("ARCHIVO GENERADO");
-        }else{
+            $('#textCargado').append("<a id='clickE' href='"+datosC.url+"' download='page-excel.xls'></a>");
+            document.getElementById('clickE').click();
+          }else{        
             $('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");
-        }
-        setTimeout(function(){
-          $('#textCargado').html("Procesando...");
-          $('#modal1').modal('close');
-        }, 1500);
+          }
+        }catch(e){          
+          $('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");                    
+        }        
       }
-
     }
-  }).done(function(datosC){
-    console.log(datosC);
-    if(datosC.replace(/\ufeff/g, '') == '1'){
-        $('#textCargado').html("ARCHIVO GENERADO");
-    }else{
-        $('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");
-    }
+  }).done(function(datosC){    
+    setTimeout(function(){
+      $('#textCargado').html("Procesando...");
+      $('#modal1').modal('close');
+    }, 1500);
   }).fail(function(retorno){
     $('#textCargado').html(retorno.replace(/\ufeff/g, ''));
   }).always(function(){

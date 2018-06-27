@@ -397,115 +397,116 @@ if($tipo == "destajo"){
             $objPHPExcel->getActiveSheet()->SetCellValue($letraAun.'6', $key);
             $letraAun++;
           }            
-        }
-
-        $tmp_valorC = "";
-        $_FechaCol = str_replace("/", "-", $key);
-        $_FechaPar = date('Y-m-d', strtotime($_FechaCol));
-        $_DiaNumero = date('N', strtotime($_FechaPar));
-        if($_DiaNumero == 1){
-            $_FechaNDQ = $_dias[6];
-        }else {
-            $_FechaNDQ = $_dias[$_DiaNumero-1];
-        }
-
-        $_queryDatos = "
-          SELECT
-            (SELECT TOP(1) valor FROM datos WHERE codigo = '".$row['codigo']."' AND nombre = '".str_replace("/", "-", $key)."' and periodoP = '".$PC."' and tipoN = '".$TN."' and IDEmpresa = '".$IDEmpresa."' and ".$ComSql.") AS 'B',
-            (SELECT TOP(1) valor FROM datosanti WHERE codigo = '".$row['codigo']."' AND nombre = 'fecha".str_replace("/", "-", $key)."' and periodoP = '".$PC."' and tipoN = '".$TN."' and IDEmpresa = '".$IDEmpresa."' and ".$ComSql." and Autorizo1 = 1) AS 'C'
-        ";
-
-        $consultaMedi = $objBDSQL2->consultaBD2($_queryDatos);
-        if($consultaMedi === false){
-          die(print_r(sqlsrv_errors(), true));
-          exit();
-        }else {
-          $row2 = $objBDSQL2->obtenResult2();
-          $objBDSQL2->liberarC2();
-        }
-        $valorC = "";
-        if(!empty($row2['B'])){
-          if($row2['B'] == '-n' || $row2['B'] == '-N'){
-
-          }else {
-            $valorC = $row2['B'];
-          }
-        }
-
-        if(!empty($row2['C'])){
-          if($row2['C'] == '-n' || $row2['C'] == '-N'){
-
-          }else {
-            $valorC = $row2['C'];
-          }
-        }
-
-        $incapacidadesQuery = '';
-        $vacacionesQuery = '';
-        $_queryIncapacidades = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc IN (109,110,111);";
-        $_queryVacaciones = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc = 30;";
-        if(empty($row[$value])){
-          $consultaIncapacidades = $objBDSQL2->consultaBD2($_queryIncapacidades);
-          if($consultaIncapacidades['error'] == 1){
-            $file = fopen("log/log".date("d-m-Y").".txt", "a");
-            fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['SQLSTATE'].PHP_EOL);
-            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['CODIGO'].PHP_EOL);
-            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['MENSAJE'].PHP_EOL);
-            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryIncapacidades.PHP_EOL);
-            fclose($file);
-            $resultV['error'] = 1;
-            echo json_encode($resultV);
-            /////////////////////////////
-            $objBDSQL->cerrarBD();
-            $objBDSQL2->cerrarBD();
-
-            exit();
-          }
-
-          $incapacidadesQuery = $objBDSQL2->obtenResult2();
-          $objBDSQL2->liberarC2();
-
-          $consultaVacaciones = $objBDSQL2->consultaBD2($_queryVacaciones);
-          if($consultaVacaciones['error'] == 1){
-            $file = fopen("log/log".date("d-m-Y").".txt", "a");
-            fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
-            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['SQLSTATE'].PHP_EOL);
-            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['CODIGO'].PHP_EOL);
-            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['MENSAJE'].PHP_EOL);
-            fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryVacaciones.PHP_EOL);
-            fclose($file);
-            $resultV['error'] = 1;
-            echo json_encode($resultV);
-            /////////////////////////////
-            $objBDSQL->cerrarBD();
-            $objBDSQL2->cerrarBD();
-
-            exit();
-          }
-
-          $vacacionesQuery = $objBDSQL2->obtenResult2();
-          $objBDSQL2->liberarC2();
-        }
-
-        if(empty($value)){
-          if(isset($incapacidadesQuery['codigo'])){            
-            $value = "I";
-          }
-          if(isset($vacacionesQuery['codigo'])){            
-            $value = "V";
-          }
-        }
+        }        
 
         if($key == 'codigo' || $key == 'Nombre' || $key == 'Tpo'){
             $objPHPExcel->getActiveSheet()->SetCellValue($letraAun2.$FILA, $value);
             $letraAun2++;
         }else if($key != 'Sueldo' && $key != 'TOTAL_REGISTROS' && $key != 'PAGINA'){
-            if(empty($valorC))
-              $valorC = $value;
+          $tmp_valorC = "";
+          $_FechaCol = str_replace("/", "-", $key);
+          $_FechaPar = date('Y-m-d', strtotime($_FechaCol));
+          $_DiaNumero = date('N', strtotime($_FechaPar));
+          if($_DiaNumero == 1){
+              $_FechaNDQ = $_dias[6];
+          }else {
+              $_FechaNDQ = $_dias[$_DiaNumero-1];
+          }
 
-            $objPHPExcel->getActiveSheet()->SetCellValue($letraAun2.$FILA, $valorC);
-            $letraAun2++;
+          $_queryDatos = "
+            SELECT
+              (SELECT TOP(1) valor FROM datos WHERE codigo = '".$row['codigo']."' AND nombre = '".str_replace("/", "-", $key)."' and periodoP = '".$PC."' and tipoN = '".$TN."' and IDEmpresa = '".$IDEmpresa."' and ".$ComSql.") AS 'B',
+              (SELECT TOP(1) valor FROM datosanti WHERE codigo = '".$row['codigo']."' AND nombre = 'fecha".str_replace("/", "-", $key)."' and periodoP = '".$PC."' and tipoN = '".$TN."' and IDEmpresa = '".$IDEmpresa."' and ".$ComSql." and Autorizo1 = 1) AS 'C'
+          ";
+
+          $consultaMedi = $objBDSQL2->consultaBD2($_queryDatos);
+          if($consultaMedi === false){
+            die(print_r(sqlsrv_errors(), true));
+            exit();
+          }else {
+            $row2 = $objBDSQL2->obtenResult2();
+            $objBDSQL2->liberarC2();
+          }
+          $valorC = "";
+          if(!empty($row2['B'])){
+            if($row2['B'] == '-n' || $row2['B'] == '-N'){
+
+            }else {
+              $valorC = $row2['B'];
+            }
+          }
+
+          if(!empty($row2['C'])){
+            if($row2['C'] == '-n' || $row2['C'] == '-N'){
+
+            }else {
+              $valorC = $row2['C'];
+            }
+          }
+
+          $incapacidadesQuery = '';
+          $vacacionesQuery = '';
+          $_queryIncapacidades = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc IN (109,110,111);";
+          $_queryVacaciones = "SELECT codigo FROM relch_registro where codigo = '".$row['codigo']."' and fecha = '".$_FechaPar."' and num_conc = 30;";
+          if(empty($row[$value])){
+            $consultaIncapacidades = $objBDSQL2->consultaBD2($_queryIncapacidades);
+            if($consultaIncapacidades['error'] == 1){
+              $file = fopen("log/log".date("d-m-Y").".txt", "a");
+              fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['SQLSTATE'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['CODIGO'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaIncapacidades['MENSAJE'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryIncapacidades.PHP_EOL);
+              fclose($file);
+              $resultV['error'] = 1;
+              echo json_encode($resultV);
+              /////////////////////////////
+              $objBDSQL->cerrarBD();
+              $objBDSQL2->cerrarBD();
+
+              exit();
+            }
+
+            $incapacidadesQuery = $objBDSQL2->obtenResult2();
+            $objBDSQL2->liberarC2();
+
+            $consultaVacaciones = $objBDSQL2->consultaBD2($_queryVacaciones);
+            if($consultaVacaciones['error'] == 1){
+              $file = fopen("log/log".date("d-m-Y").".txt", "a");
+              fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['SQLSTATE'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['CODIGO'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaVacaciones['MENSAJE'].PHP_EOL);
+              fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryVacaciones.PHP_EOL);
+              fclose($file);
+              $resultV['error'] = 1;
+              echo json_encode($resultV);
+              /////////////////////////////
+              $objBDSQL->cerrarBD();
+              $objBDSQL2->cerrarBD();
+
+              exit();
+            }
+
+            $vacacionesQuery = $objBDSQL2->obtenResult2();
+            $objBDSQL2->liberarC2();
+          }
+
+          if(empty($value)){
+            if(isset($incapacidadesQuery['codigo'])){            
+              $value = "I";
+            }
+            if(isset($vacacionesQuery['codigo'])){            
+              $value = "V";
+            }
+          }
+
+
+          if(empty($valorC))
+            $valorC = $value;
+
+          $objPHPExcel->getActiveSheet()->SetCellValue($letraAun2.$FILA, $valorC);
+          $letraAun2++;
         }        
     }
     $Nresultados++;
@@ -521,6 +522,11 @@ if($tipo == "destajo"){
   }else {
     $ComSql = "llaves.centro IN (".$_SESSION['centros'].")";
     $ComSql2 = "centro IN (".$_SESSION['centros'].")";
+
+    if(empty($_SESSION['centros'])){
+      $ComSql = "1 = 1";
+      $ComSql2 = "1 = 1";
+    }
   }
 
   if($supervisor == 0){
@@ -580,7 +586,7 @@ if($tipo == "destajo"){
         LEFT JOIN contrato AS C on C.IDEmpleado = empleados.codigo AND C.IDEmpresa = Llaves.empresa AND C.centro = Llaves.centro
 
         where empleados.activo = 'S' AND
-        ".$ComSql." and llaves.empresa = '".$IDEmpresa."'
+        ".$ComSql." and llaves.empresa = '".$IDEmpresa."' AND llaves.supervisor = ".$supervisor."
 
         group by  empleados.codigo,
               empleados.ap_paterno,
@@ -1121,5 +1127,5 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 $objWriter->save(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\pantalla-'.$tipo.'.xls');
 copy(Unidad.'E'.$IDEmpresa.'\\'.$Carpeta.'\excel\pantalla-'.$tipo.'.xls', 'Temp\pantalla-'.$tipo.'.xls');
 
-echo json_encode(array("url" => URL_PAGINA .'Temp/pantalla-'.$tipo.'.xls', "status" => 1));
+echo json_encode(array("url" => URL_PAGINA .'Temp/pantalla-'.$tipo.'.xls', "status" => 1, "error" => 0));
 ?>

@@ -76,16 +76,26 @@ function GPDOM() {
 				conexion = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 				conexion.onreadystatechange = function() {
 					if(conexion.readyState == 4 && conexion.status == 200){
+						
+						datosC = conexion.responseText.replace(/\ufeff/g, '');
+						
+						try {
+							datosC = JSON.parse(datosC);
+							if(datosC.excel != ""){
+									$('#textCargado').html("ARCHIVO GENERADO");
+									$('#textCargado').append("<a id='clickE' href='"+datosC.excel+"' download='PDOM.xls'></a>");
+									document.getElementById('clickE').click();
+							}else{        
+								$('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");
+							}
+						}catch(e){          
+							$('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");                    
+						} 
 
-						if(conexion.responseText.replace(/\ufeff/g, '') == 1){
-							document.getElementById('textCargado').innerHTML = "ARCHIVO GENERADO";
-							setTimeout(function() {
-								document.getElementById('textCargado').innerHTML = "Procesando...";
-        						$('#modal1').modal('close');
-							}, 1500);
-						}else {
-							document.getElementById('textCargado').innerHTML = conexion.responseText;
-						}
+						setTimeout(function() {
+							document.getElementById('textCargado').innerHTML = "Procesando...";
+									$('#modal1').modal('close');
+						}, 1500);
 
 					}else if(conexion.readyState != 4){
 						document.getElementById('textCargado').innerHTML = "Procesando...";
@@ -155,13 +165,21 @@ function GenerarExcel(){
       $('#textCargado').html("Procesando...");
       $('#modal1').modal('open');
     }
-  }).done(function(datosC){
-    console.log(datosC);
-    if(datosC.replace(/\ufeff/g, '') == '1'){
-        $('#textCargado').html("ARCHIVO GENERADO");
-    }else{
-        $('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");
-    }
+  }).done(function(datosC){  		
+		datosC = datosC.replace(/\ufeff/g, '');
+		try{
+			datosC = JSON.parse(datosC);
+			if(datosC.status == 1){
+				$('#textCargado').html("ARCHIVO GENERADO");
+				$('#textCargado').append("<a id='clickE' href='"+datosC.url+"' download='page-excel.xls'></a>");
+				document.getElementById('clickE').click();
+			}else{        
+				$('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");
+			}
+		}catch(e){          
+			$('#textCargado').html("ERROR AL GENERAR EL ARCHIVO");                    
+		}
+				
   }).fail(function(retorno){
     $('#textCargado').html(retorno);
   }).always(function(){

@@ -1,0 +1,465 @@
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:50:35 PM] - SQLSTATE: 42S02
+[26/06/2018 09:50:35 PM] - CODIGO: 208
+[26/06/2018 09:50:35 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[26/06/2018 09:50:35 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:50:36 PM] - SQLSTATE: 42000
+[26/06/2018 09:50:36 PM] - CODIGO: 102
+[26/06/2018 09:50:36 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[26/06/2018 09:50:36 PM] - CONSULTA: 
+    select all (empleados.codigo) AS 'codigo',
+        ltrim (empleados.ap_paterno)+' '+ltrim (empleados.ap_materno)+' '+ltrim (empleados.nombre) AS 'nombre',
+    	  llaves.ocupacion AS 'ocupacion',
+    	  tabulador.actividad AS 'actividad',
+    	  llaves.horario AS 'horario',
+        MAx (convert(varchar(10),empleados.fchantigua,103)) AS 'fechaAnti',
+        max(convert(varchar(10),contratos.fchAlta ,103)) AS 'fechaAlta',
+        max(convert(varchar(10),contratos.fchterm ,103)) AS 'fechaTer',
+        SUM(contratos.dias) AS 'dias',
+        C.Observacion,
+        C.Contrato
+
+        from empleados
+
+        LEFT  join contratos  on contratos.empresa = empleados.empresa and contratos.codigo = empleados.codigo
+        INNER JOIN llaves on llaves.empresa = empleados.empresa and llaves.codigo = empleados.codigo
+        INNER JOIN tabulador on tabulador.empresa = llaves.empresa and tabulador.ocupacion = llaves.ocupacion
+        LEFT JOIN contrato AS C on C.IDEmpleado = empleados.codigo AND C.IDEmpresa = Llaves.empresa AND C.centro = Llaves.centro
+
+        where empleados.activo = 'S' AND
+        llaves.centro IN () and llaves.empresa = '1'
+
+        group by  empleados.codigo,
+              empleados.ap_paterno,
+              empleados.ap_materno,
+              empleados.nombre,
+              empleados.fchantigua,
+              llaves.ocupacion,
+              tabulador.actividad,
+              llaves.horario,
+              C.Observacion,
+              C.Contrato
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:50:36 PM] - SQLSTATE: 42000
+[26/06/2018 09:50:36 PM] - CODIGO: 102
+[26/06/2018 09:50:36 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[26/06/2018 09:50:36 PM] - CONSULTA: 
+    select all (empleados.codigo) AS 'codigo',
+        ltrim (empleados.ap_paterno)+' '+ltrim (empleados.ap_materno)+' '+ltrim (empleados.nombre) AS 'nombre',
+    	  llaves.ocupacion AS 'ocupacion',
+    	  tabulador.actividad AS 'actividad',
+    	  llaves.horario AS 'horario',
+        MAx (convert(varchar(10),empleados.fchantigua,103)) AS 'fechaAnti',
+        max(convert(varchar(10),contratos.fchAlta ,103)) AS 'fechaAlta',
+        max(convert(varchar(10),contratos.fchterm ,103)) AS 'fechaTer',
+        SUM(contratos.dias) AS 'dias',
+        C.Observacion,
+        C.Contrato
+
+        from empleados
+
+        LEFT  join contratos  on contratos.empresa = empleados.empresa and contratos.codigo = empleados.codigo
+        INNER JOIN llaves on llaves.empresa = empleados.empresa and llaves.codigo = empleados.codigo
+        INNER JOIN tabulador on tabulador.empresa = llaves.empresa and tabulador.ocupacion = llaves.ocupacion
+        LEFT JOIN contrato AS C on C.IDEmpleado = empleados.codigo AND C.IDEmpresa = Llaves.empresa AND C.centro = Llaves.centro
+
+        where empleados.activo = 'S' AND
+        llaves.centro IN () and llaves.empresa = '1'
+
+        group by  empleados.codigo,
+              empleados.ap_paterno,
+              empleados.ap_materno,
+              empleados.nombre,
+              empleados.fchantigua,
+              llaves.ocupacion,
+              tabulador.actividad,
+              llaves.horario,
+              C.Observacion,
+              C.Contrato
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:50:36 PM] - SQLSTATE: 42000
+[26/06/2018 09:50:36 PM] - CODIGO: 102
+[26/06/2018 09:50:36 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:51:35 PM] - SQLSTATE: 42000
+[26/06/2018 09:51:35 PM] - CODIGO: 102
+[26/06/2018 09:51:35 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[26/06/2018 09:51:35 PM] - CONSULTA: 
+    select all (empleados.codigo) AS 'codigo',
+        ltrim (empleados.ap_paterno)+' '+ltrim (empleados.ap_materno)+' '+ltrim (empleados.nombre) AS 'nombre',
+    	  llaves.ocupacion AS 'ocupacion',
+    	  tabulador.actividad AS 'actividad',
+    	  llaves.horario AS 'horario',
+        MAx (convert(varchar(10),empleados.fchantigua,103)) AS 'fechaAnti',
+        max(convert(varchar(10),contratos.fchAlta ,103)) AS 'fechaAlta',
+        max(convert(varchar(10),contratos.fchterm ,103)) AS 'fechaTer',
+        SUM(contratos.dias) AS 'dias',
+        C.Observacion,
+        C.Contrato
+
+        from empleados
+
+        LEFT  join contratos  on contratos.empresa = empleados.empresa and contratos.codigo = empleados.codigo
+        INNER JOIN llaves on llaves.empresa = empleados.empresa and llaves.codigo = empleados.codigo
+        INNER JOIN tabulador on tabulador.empresa = llaves.empresa and tabulador.ocupacion = llaves.ocupacion
+        LEFT JOIN contrato AS C on C.IDEmpleado = empleados.codigo AND C.IDEmpresa = Llaves.empresa AND C.centro = Llaves.centro
+
+        where empleados.activo = 'S' AND
+        llaves.centro IN () and llaves.empresa = '1'
+
+        group by  empleados.codigo,
+              empleados.ap_paterno,
+              empleados.ap_materno,
+              empleados.nombre,
+              empleados.fchantigua,
+              llaves.ocupacion,
+              tabulador.actividad,
+              llaves.horario,
+              C.Observacion,
+              C.Contrato
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:51:35 PM] - SQLSTATE: 42000
+[26/06/2018 09:51:35 PM] - CODIGO: 102
+[26/06/2018 09:51:35 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[26/06/2018 09:51:35 PM] - CONSULTA: 
+    select all (empleados.codigo) AS 'codigo',
+        ltrim (empleados.ap_paterno)+' '+ltrim (empleados.ap_materno)+' '+ltrim (empleados.nombre) AS 'nombre',
+    	  llaves.ocupacion AS 'ocupacion',
+    	  tabulador.actividad AS 'actividad',
+    	  llaves.horario AS 'horario',
+        MAx (convert(varchar(10),empleados.fchantigua,103)) AS 'fechaAnti',
+        max(convert(varchar(10),contratos.fchAlta ,103)) AS 'fechaAlta',
+        max(convert(varchar(10),contratos.fchterm ,103)) AS 'fechaTer',
+        SUM(contratos.dias) AS 'dias',
+        C.Observacion,
+        C.Contrato
+
+        from empleados
+
+        LEFT  join contratos  on contratos.empresa = empleados.empresa and contratos.codigo = empleados.codigo
+        INNER JOIN llaves on llaves.empresa = empleados.empresa and llaves.codigo = empleados.codigo
+        INNER JOIN tabulador on tabulador.empresa = llaves.empresa and tabulador.ocupacion = llaves.ocupacion
+        LEFT JOIN contrato AS C on C.IDEmpleado = empleados.codigo AND C.IDEmpresa = Llaves.empresa AND C.centro = Llaves.centro
+
+        where empleados.activo = 'S' AND
+        llaves.centro IN () and llaves.empresa = '1'
+
+        group by  empleados.codigo,
+              empleados.ap_paterno,
+              empleados.ap_materno,
+              empleados.nombre,
+              empleados.fchantigua,
+              llaves.ocupacion,
+              tabulador.actividad,
+              llaves.horario,
+              C.Observacion,
+              C.Contrato
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:51:35 PM] - SQLSTATE: 42000
+[26/06/2018 09:51:35 PM] - CODIGO: 102
+[26/06/2018 09:51:35 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:59:49 PM] - SQLSTATE: 42S02
+[26/06/2018 09:59:49 PM] - CODIGO: 208
+[26/06/2018 09:59:49 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[26/06/2018 09:59:49 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:59:53 PM] - SQLSTATE: 42000
+[26/06/2018 09:59:53 PM] - CODIGO: 102
+[26/06/2018 09:59:53 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[26/06/2018 09:59:53 PM] - CONSULTA: 
+    select all (empleados.codigo) AS 'codigo',
+        ltrim (empleados.ap_paterno)+' '+ltrim (empleados.ap_materno)+' '+ltrim (empleados.nombre) AS 'nombre',
+    	  llaves.ocupacion AS 'ocupacion',
+    	  tabulador.actividad AS 'actividad',
+    	  llaves.horario AS 'horario',
+        MAx (convert(varchar(10),empleados.fchantigua,103)) AS 'fechaAnti',
+        max(convert(varchar(10),contratos.fchAlta ,103)) AS 'fechaAlta',
+        max(convert(varchar(10),contratos.fchterm ,103)) AS 'fechaTer',
+        SUM(contratos.dias) AS 'dias',
+        C.Observacion,
+        C.Contrato
+
+        from empleados
+
+        LEFT  join contratos  on contratos.empresa = empleados.empresa and contratos.codigo = empleados.codigo
+        INNER JOIN llaves on llaves.empresa = empleados.empresa and llaves.codigo = empleados.codigo
+        INNER JOIN tabulador on tabulador.empresa = llaves.empresa and tabulador.ocupacion = llaves.ocupacion
+        LEFT JOIN contrato AS C on C.IDEmpleado = empleados.codigo AND C.IDEmpresa = Llaves.empresa AND C.centro = Llaves.centro
+
+        where empleados.activo = 'S' AND
+        llaves.centro IN () and llaves.empresa = '1'
+
+        group by  empleados.codigo,
+              empleados.ap_paterno,
+              empleados.ap_materno,
+              empleados.nombre,
+              empleados.fchantigua,
+              llaves.ocupacion,
+              tabulador.actividad,
+              llaves.horario,
+              C.Observacion,
+              C.Contrato
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:59:53 PM] - SQLSTATE: 42000
+[26/06/2018 09:59:53 PM] - CODIGO: 102
+[26/06/2018 09:59:53 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[26/06/2018 09:59:53 PM] - CONSULTA: 
+    select all (empleados.codigo) AS 'codigo',
+        ltrim (empleados.ap_paterno)+' '+ltrim (empleados.ap_materno)+' '+ltrim (empleados.nombre) AS 'nombre',
+    	  llaves.ocupacion AS 'ocupacion',
+    	  tabulador.actividad AS 'actividad',
+    	  llaves.horario AS 'horario',
+        MAx (convert(varchar(10),empleados.fchantigua,103)) AS 'fechaAnti',
+        max(convert(varchar(10),contratos.fchAlta ,103)) AS 'fechaAlta',
+        max(convert(varchar(10),contratos.fchterm ,103)) AS 'fechaTer',
+        SUM(contratos.dias) AS 'dias',
+        C.Observacion,
+        C.Contrato
+
+        from empleados
+
+        LEFT  join contratos  on contratos.empresa = empleados.empresa and contratos.codigo = empleados.codigo
+        INNER JOIN llaves on llaves.empresa = empleados.empresa and llaves.codigo = empleados.codigo
+        INNER JOIN tabulador on tabulador.empresa = llaves.empresa and tabulador.ocupacion = llaves.ocupacion
+        LEFT JOIN contrato AS C on C.IDEmpleado = empleados.codigo AND C.IDEmpresa = Llaves.empresa AND C.centro = Llaves.centro
+
+        where empleados.activo = 'S' AND
+        llaves.centro IN () and llaves.empresa = '1'
+
+        group by  empleados.codigo,
+              empleados.ap_paterno,
+              empleados.ap_materno,
+              empleados.nombre,
+              empleados.fchantigua,
+              llaves.ocupacion,
+              tabulador.actividad,
+              llaves.horario,
+              C.Observacion,
+              C.Contrato
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 09:59:53 PM] - SQLSTATE: 42000
+[26/06/2018 09:59:53 PM] - CODIGO: 102
+[26/06/2018 09:59:53 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 10:05:04 PM] - SQLSTATE: 42S02
+[26/06/2018 10:05:04 PM] - CODIGO: 208
+[26/06/2018 10:05:04 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[26/06/2018 10:05:04 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 10:05:53 PM] - SQLSTATE: 42S02
+[26/06/2018 10:05:53 PM] - CODIGO: 208
+[26/06/2018 10:05:53 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[26/06/2018 10:05:53 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 10:06:29 PM] - SQLSTATE: 42S02
+[26/06/2018 10:06:29 PM] - CODIGO: 208
+[26/06/2018 10:06:29 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[26/06/2018 10:06:29 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 10:07:02 PM] - SQLSTATE: 42S02
+[26/06/2018 10:07:02 PM] - CODIGO: 208
+[26/06/2018 10:07:02 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[26/06/2018 10:07:02 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 10:07:57 PM] - SQLSTATE: 42S02
+[26/06/2018 10:07:57 PM] - CODIGO: 208
+[26/06/2018 10:07:57 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[26/06/2018 10:07:57 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 10:08:40 PM] - SQLSTATE: 42S02
+[26/06/2018 10:08:40 PM] - CODIGO: 208
+[26/06/2018 10:08:40 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[26/06/2018 10:08:40 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[26/06/2018 10:09:18 PM] - SQLSTATE: 42S02
+[26/06/2018 10:09:18 PM] - CODIGO: 208
+[26/06/2018 10:09:18 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[26/06/2018 10:09:18 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    
