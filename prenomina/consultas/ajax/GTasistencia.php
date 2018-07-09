@@ -477,7 +477,7 @@ class PDF extends FPDF
   }
 }
 
-if($_SESSION['Sudo'] == 1){
+if($_SESSION['Sudo'] != 1){
   $pdf = new PDF('L', 'mm', 'Legal');
   $pdf->AliasNbPages();
   $pdf->SetTitle('Reporte de Faltas');
