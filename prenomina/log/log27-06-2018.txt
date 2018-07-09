@@ -1,0 +1,27 @@
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[27/06/2018 07:08:15 PM] - SE HA LOGEADO EL USUARIO: sudo
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[27/06/2018 07:11:10 PM] - SQLSTATE: 42S02
+[27/06/2018 07:11:10 PM] - CODIGO: 208
+[27/06/2018 07:11:10 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Invalid object name 'staff_porcentaje'.
+[27/06/2018 07:11:10 PM] - CONSULTA: 
+        select distinct a.ocupacion,
+                a.actividad,
+                COUNT(llaves.ocupacion) as Total,
+                S.v100 as Num
+
+        from tabulador as a
+
+        inner join Llaves as b on b.empresa = a.empresa and b.ocupacion = a.ocupacion
+        inner join empleados as c on c.empresa = b.empresa and c.codigo = b.codigo
+        INNER JOIN llaves on llaves.empresa = c.empresa and llaves.codigo = c.codigo
+        inner join staff_porcentaje as S on S.empresa = a.empresa and S.ocupacion = b.ocupacion and S.centro = b.centro
+
+        where c.activo = 'S' and
+        1 = 1
+
+        group by  a.ocupacion,
+                  llaves.ocupacion,
+                  S.v100,
+                  a.actividad
+    

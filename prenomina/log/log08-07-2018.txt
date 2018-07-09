@@ -1,0 +1,134 @@
+:::::::::::::::::::::::LOGIN:::::::::::::::::::::::
+[08/07/2018 09:25:31 PM] - SE HA LOGEADO EL USUARIO: sudo
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:36:07 PM] - SQLSTATE: 42000
+[08/07/2018 10:36:07 PM] - CODIGO: 8114
+[08/07/2018 10:36:07 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:36:07 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:36:07 PM] - SQLSTATE: 42000
+[08/07/2018 10:36:07 PM] - CODIGO: 8114
+[08/07/2018 10:36:07 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:36:07 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:36:07 PM] - SQLSTATE: 42000
+[08/07/2018 10:36:07 PM] - CODIGO: 8114
+[08/07/2018 10:36:07 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:36:07 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:36:07 PM] - SQLSTATE: 42000
+[08/07/2018 10:36:07 PM] - CODIGO: 8114
+[08/07/2018 10:36:07 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:36:07 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:40:08 PM] - SQLSTATE: 42000
+[08/07/2018 10:40:08 PM] - CODIGO: 8114
+[08/07/2018 10:40:08 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:40:08 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:40:08 PM] - SQLSTATE: 42000
+[08/07/2018 10:40:08 PM] - CODIGO: 8114
+[08/07/2018 10:40:08 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:40:08 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:40:08 PM] - SQLSTATE: 42000
+[08/07/2018 10:40:08 PM] - CODIGO: 8114
+[08/07/2018 10:40:08 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:40:08 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:40:08 PM] - SQLSTATE: 42000
+[08/07/2018 10:40:08 PM] - CODIGO: 8114
+[08/07/2018 10:40:08 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:40:08 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:41:30 PM] - SQLSTATE: 42000
+[08/07/2018 10:41:30 PM] - CODIGO: 8114
+[08/07/2018 10:41:30 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:41:30 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:41:30 PM] - SQLSTATE: 42000
+[08/07/2018 10:41:30 PM] - CODIGO: 8114
+[08/07/2018 10:41:30 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:41:30 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:41:30 PM] - SQLSTATE: 42000
+[08/07/2018 10:41:30 PM] - CODIGO: 8114
+[08/07/2018 10:41:30 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:41:30 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 10:41:30 PM] - SQLSTATE: 42000
+[08/07/2018 10:41:30 PM] - CODIGO: 8114
+[08/07/2018 10:41:30 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to numeric.
+[08/07/2018 10:41:30 PM] - CONSULTA: SELECT LTRIM(RTRIM(centro)) AS centro
+  FROM Llaves
+  WHERE codigo = ''
+  AND empresa = '1'
+  AND tiponom = ''
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 11:07:02 PM] - SQLSTATE: 42000
+[08/07/2018 11:07:02 PM] - CODIGO: 102
+[08/07/2018 11:07:02 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[08/07/2018 11:07:02 PM] - CONSULTA: SELECT TOP 1 valor
+                FROM dobTurno
+                WHERE codigo = 20
+                AND fecha = '12-01-2018'
+                AND periodo = 2
+                AND tipoN = 4
+                AND IDEmpresa = 1
+                AND Centro IN ()
+:::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::
+[08/07/2018 11:07:02 PM] - SQLSTATE: 42000
+[08/07/2018 11:07:02 PM] - CODIGO: 102
+[08/07/2018 11:07:02 PM] - MENSAJE: [Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Incorrect syntax near ')'.
+[08/07/2018 11:07:02 PM] - CONSULTA: SELECT TOP 1 valor
+                FROM dobTurno
+                WHERE codigo = 20
+                AND fecha = '12-01-2018'
+                AND periodo = 2
+                AND tipoN = 4
+                AND IDEmpresa = 1
+                AND Centro IN ()

@@ -25,8 +25,7 @@ $DobTurno = "SELECT TOP 1 valor
                 AND fecha = '".$fecha."'
                 AND periodo = ".$Peri."
                 AND tipoN = ".$TiN."
-                AND IDEmpresa = $IDEmpresa
-                AND ".$ComSql;
+                AND IDEmpresa = ".$IDEmpresa;
 
 $resultado = $objBDSQL->consultaBD($DobTurno);
 if($resultado['error'] == 1)

@@ -613,7 +613,7 @@ while ($row=$objBDSQL->obtenResult()) {
             (SELECT TOP(1) valor FROM deslaborado WHERE codigo = ".$row['codigo']." AND fecha = '".str_replace("/", "-", $value)."' AND periodo = $_periodo AND tipoN = $_tipoNom AND IDEmpresa = '".$IDEmpresa."' AND ".$ComSql.") AS 'E',
             (SELECT TOP(1) (Convert(varchar(5), PP)+'|'+Convert(varchar(5), PA)) as 'B' FROM premio WHERE codigo = '".$row['codigo']."' and Periodo = '".$_periodo."' and TN = '".$_tipoNom."' and ".$ComSql." and IDEmpresa = '".$IDEmpresa."') AS 'F',
             (SELECT TOP(1) (Convert(varchar(5), PP)+'|'+Convert(varchar(5), PA)) as 'B' FROM ajusteempleado WHERE IDEmpleado = '".$row['codigo']."' and ".$ComSql." and IDEmpresa = '".$IDEmpresa."') AS 'G',
-            (SELECT TOP(1) (Convert(varchar(5), PDOM)+'|'+Convert(varchar(5), DLaborados)) as 'B' FROM ajusteempleado WHERE IDEmpleado = '".$row['codigo']."' and ".$ComSql." and IDEmpresa = '".$IDEmpresa."') AS 'H'
+            (SELECT TOP(1) (Convert(varchar(5), PDOM)+'|'+Convert(varchar(5), DLaborados)) as 'B' FROM ajusteempleado WHERE IDEmpleado = '".$row['codigo']."' and ".$ComSql." and IDEmpresa = '".$IDEmpresa."') AS 'H'            
         ";
         //(SELECT TOP(1) ".$_FechaNDQ." FROM relacionempfrente WHERE Codigo = '".$row['codigo']."' AND ".$ComSql." AND IDEmpresa = '".$IDEmpresa."') AS 'D',
 
@@ -800,48 +800,48 @@ while ($row=$objBDSQL->obtenResult()) {
                 }
               }
             }
-
           }
         }
-
         $sumaDias++;
-
       }
-
     }
     $sumaDias=0;
-    /**
-     * Columna de PP y PA
-     */
-    /*if($row['Tpo'] == "E"){
-      $tmp_PPC = "";
-      $tmp_PAC = "";
-      $tmp_APPC = "";
-      $tmp_APAC = "";
-      if($_PPPAempleado[0] == 0){
-        if($_PPPA[0] == 0){
-          $_cuerpo .= '<td><input type="number" '.$bloquear.' style="width: 70px;" min="0" id="pp'.$row['codigo'].'" onkeyup="GpremioPP(\''.$row["codigo"].'\')" placeholder="P.P" step="0.01" value=""></td>';
-        }else {
-          $_cuerpo .= '<td><input type="number" '.$bloquear.' style="width: 70px;" min="0" id="pp'.$row['codigo'].'" onkeyup="GpremioPP(\''.$row["codigo"].'\')" placeholder="P.P" step="0.01" value="'.$_PPPA[0].'"></td>';
-        }
-      }else {
-        $_cuerpo .= '<td class="Aline"></td>';
-      }
 
-      if($_PPPAempleado[1] == 0){
-        if($_PPPA[1] == 0){
-          $_cuerpo .= '<td><input type="number" '.$bloquear.' style="width: 70px; min="0" id="pa'.$row['codigo'].'" onkeyup="GpremioPA(\''.$row["codigo"].'\')" placeholder="P.A" step="0.01" value=""></td>';
-        }else {
-          $_cuerpo .= '<td><input type="number" '.$bloquear.' style="width: 70px; min="0" id="pa'.$row['codigo'].'" onkeyup="GpremioPA(\''.$row["codigo"].'\')" placeholder="P.A" step="0.01" value="'.$_PPPA[1].'"></td>';
-        }
-      }else {
-        $_cuerpo .= '<td class="Aline"></td>';
-      }
-    }else {*/
+    $_queryBonoTextra = "SELECT TOP(1) (Convert(varchar(5), bono)+'|'+Convert(varchar(5), TExtra)) as 'B' FROM premio WHERE codigo = '".$row['codigo']."' and Periodo = '".$_periodo."' and TN = '".$_tipoNom."' and IDEmpresa = '".$IDEmpresa."' ";
+    $consultaBonoTextra = $objBDSQL2->consultaBD2($_queryBonoTextra);
+    if($consultaBonoTextra['error'] == 1){
+      $file = fopen("log/log".date("d-m-Y").".txt", "a");
+      fwrite($file, ":::::::::::::::::::::::ERROR SQL:::::::::::::::::::::::".PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaBonoTextra['SQLSTATE'].PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaBonoTextra['CODIGO'].PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - '.$consultaBonoTextra['MENSAJE'].PHP_EOL);
+      fwrite($file, '['.date('d/m/Y h:i:s A').']'.' - CONSULTA: '.$_queryBonoTextra.PHP_EOL);
+      fclose($file);
+      $resultV['error'] = 1;
+      echo json_encode($resultV);
+      /////////////////////////////
+      $objBDSQL->cerrarBD();
+      $objBDSQL2->cerrarBD();
+
+      exit();
+    }
+
+    $bonoTextraQuery = $objBDSQL2->obtenResult2();
+    $objBDSQL2->liberarC2();
+
+    $bonoTextra = explode('|', '0.00|0.00');
+    if(count($bonoTextraQuery))    
+      $bonoTextra = explode('|', $bonoTextraQuery['B']);
+    
+    if($row['Tpo'] == "E")
+    {
+      $_cuerpo .= '<td class="Aline"><input type="number" step="0.01" id="bono'.$row['codigo'].'" style="width: 62px;" value="'.$bonoTextra[0].'" onkeyup="GuardarBono(\''.$row['codigo'].'\', \''.$_periodo.'\', \''.$_tipoNom.'\', \''.$IDEmpresa.'\')" ></td>';
+      $_cuerpo .= '<td class="Aline"><input type="number" step="0.01" id="textra'.$row['codigo'].'" style="width: 62px;" value="'.$bonoTextra[1].'" onkeyup="GuardarTextra(\''.$row['codigo'].'\', \''.$_periodo.'\', \''.$_tipoNom.'\', \''.$IDEmpresa.'\')"></td>';
+    }else {
       $_cuerpo .= '<td class="Aline"></td>';
       $_cuerpo .= '<td class="Aline"></td>';
-    //}
-
+    }
+    
     $_nResultados++;
     $_cuerpo .= '<td></td></tr>';
 }
@@ -850,6 +850,7 @@ while ($row=$objBDSQL->obtenResult()) {
  * cabecera para PA y PP
  */
 //$_cabecera .= "<th>P.P</th><th>P.A</th><th>Firma</th></tr>";
+$_cabecera .= "<th>Bono</th><th>T.E</th>";
 $_cabecera .= "<th colspan='3'>Firma</th></tr>";
 $_cabeceraD .= "</tr>";
 

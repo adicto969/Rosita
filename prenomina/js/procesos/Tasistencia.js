@@ -508,8 +508,52 @@ function GpremioPP(codigo) {
       }
     });
   }
-
 }
+
+function GuardarBono(codigo, periodo, tn, empresa) {  
+  var valor = $('#bono'+codigo).val();
+  if(valor != ""){
+    $.ajax({
+      method: "POST",
+      url: "ajax.php?modo=Gpremio",
+      data: "modo=bono&codigo="+codigo+"&valor="+valor+"&periodo="+periodo+"&tn="+tn+"&empresa="+empresa
+    }).done(function(datos){
+      try {
+          var jsonDatos = JSON.parse(datos.replace(/\ufeff/g, ''));
+          if(jsonDatos.error == 1){
+            $("#bono"+codigo).css("background-color", "#ff4646");
+          }else {
+            $("#bono"+codigo).css("background-color", "rgb(78, 212, 78)");
+          }
+      } catch (e) {
+        $("#bono"+codigo).css("background-color", "#ff4646");
+      }
+    });
+  }
+}
+
+function GuardarTextra(codigo, periodo, tn, empresa) {  
+  var valor = $('#textra'+codigo).val();
+  if(valor != ""){
+    $.ajax({
+      method: "POST",
+      url: "ajax.php?modo=Gpremio",
+      data: "modo=textra&codigo="+codigo+"&valor="+valor+"&periodo="+periodo+"&tn="+tn+"&empresa="+empresa
+    }).done(function(datos){
+      try {
+          var jsonDatos = JSON.parse(datos.replace(/\ufeff/g, ''));
+          if(jsonDatos.error == 1){
+            $("#textra"+codigo).css("background-color", "#ff4646");
+          }else {
+            $("#textra"+codigo).css("background-color", "rgb(78, 212, 78)");
+          }
+      } catch (e) {
+        $("#textra"+codigo).css("background-color", "#ff4646");
+      }
+    });
+  }
+}
+
 
 function GpremioPA(codigo) {
   var Valor = $("#pa"+codigo).val();
