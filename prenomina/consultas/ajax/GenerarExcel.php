@@ -401,6 +401,28 @@ if($tipo == "destajo"){
 
         if($key == 'codigo' || $key == 'Nombre' || $key == 'Tpo'){
             $objPHPExcel->getActiveSheet()->SetCellValue($letraAun2.$FILA, $value);
+            if($FILA % 2 == 0)
+            {
+              //bottom
+              $BStyle = array(
+                'borders' => array(
+                  'bottom' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                  )
+                )
+              );
+              $objPHPExcel->getActiveSheet()->getStyle($letraAun2.$FILA':'$letraAun2.$FILA)->applyFromArray($BStyle);
+            }else{
+              //top
+              $BStyle = array(
+                'borders' => array(
+                  'top' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                  )
+                )
+              );
+              $objPHPExcel->getActiveSheet()->getStyle($letraAun2.$FILA':'$letraAun2.$FILA)->applyFromArray($BStyle);
+            }
             $letraAun2++;
         }else if($key != 'Sueldo' && $key != 'TOTAL_REGISTROS' && $key != 'PAGINA'){
           $tmp_valorC = "";
@@ -506,6 +528,28 @@ if($tipo == "destajo"){
             $valorC = $value;
 
           $objPHPExcel->getActiveSheet()->SetCellValue($letraAun2.$FILA, $valorC);
+          if($FILA % 2 == 0)
+            {
+              //bottom
+              $BStyle = array(
+                'borders' => array(
+                  'bottom' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                  )
+                )
+              );
+              $objPHPExcel->getActiveSheet()->getStyle($letraAun2.$FILA':'$letraAun2.$FILA)->applyFromArray($BStyle);
+            }else{
+              //top
+              $BStyle = array(
+                'borders' => array(
+                  'top' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                  )
+                )
+              );
+              $objPHPExcel->getActiveSheet()->getStyle($letraAun2.$FILA':'$letraAun2.$FILA)->applyFromArray($BStyle);
+            }
           $letraAun2++;
         }        
     }
